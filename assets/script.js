@@ -1,20 +1,6 @@
-// Two objects containing all the info needed currently
-var currentMovieA = 
-     {
-        title: "",
-        imgURL: "",
-        year: 0,
-        ratting: 0, 
-        runtime: 0 
-    };
-var currentMovieB = 
-    {
-       title: "",
-       imgURL: "",
-       year: 0,
-       ratting: 0, 
-       runtime: 0 
-   };
+// Two variables to hold the movieObject data from the API functions
+var currentMovieA;
+var currentMovieB;
 //A past movie array that is pushed to after every round to make sure that the same two movies dont appear twice
 var pastMovies = [
     {titleA: "", titleB: ""}
