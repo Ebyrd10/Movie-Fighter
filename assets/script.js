@@ -17,12 +17,20 @@ var currentMovieB = {
     posterRef: ""
 };
 //The two variables below are how they wil actaully look in the code at the end of the day
-var currentMovieA;
-var currentMovieB;
+// var currentMovieA;
+// var currentMovieB;
 //A past movie array that is pushed to after every round to make sure that the same two movies dont appear twice
 var pastMovies = [
-    { titleA: "", titleB: "" }
+    { movieA: "", movieB: "" }
 ]
+//This function stores pastMovies for the duration of the session so that the same 2 movies are not repeated twice in 1 game
+var storepastMovies = function (){
+    var newEntry = {};
+    newEntry.movieA = currentMovieA.title;
+    newEntry.movieB = currentMovieB.title;
+    pastMovies.push(newEntry);
+};
+
 //A score keeping variable
 var score = 0;
 
@@ -51,10 +59,15 @@ var winOrLose = function () {
     //If the user correctly choses the winner, the game goes on
     if (userChoice === winner) {
         score++;
-        "Pick 2 new movies, render cards, wait for userChoice then winOrLose again"
+        storepastMovies();
+        "Pick 2 new movies"
+        "check for repeats, if yes then pick 2 new movies, if no, then return early"
+        "render cards, - (This should still be handled by the img click eventlistner below) wait for userChoice then winOrLose again"
     }
     else {
-        "GAME OVER"
+        "give feedback that yells GAME OVER"
+        "save score to the list of highscores"
+        "go to the highscore Screen"
     }
 
 };
