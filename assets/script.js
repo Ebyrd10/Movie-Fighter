@@ -1,18 +1,18 @@
 // Two variables to hold the movieObject data from the API functions
 //These are dummy variables to help coding things without data
 var currentMovieA = {
-    title: "",
+    title: "Ethan's Story",
     rating: "",
     runtime: "",
-    year: "",
+    year: "2011",
     boxOffice: "",
     posterRef: ""
 };
 var currentMovieB = {
-    title: "",
+    title: "Ethan's Story 2: The Retelling",
     rating: "",
     runtime: "",
-    year: "",
+    year: "2019",
     boxOffice: "",
     posterRef: ""
 };
@@ -30,9 +30,29 @@ var storepastMovies = function (){
     newEntry.movieB = currentMovieB.title;
     pastMovies.push(newEntry);
 };
+var checkRepeats = function () {
+    repeatObj = {
+        movieA: currentMovieA.title,
+        movieB: currentMovieB.title
 
+    };
+    repeatObjInverse = {
+        movieB: currentMovieB.title,
+        movieA: currentMovieA.title
+    };
+    //If the current movie, or a variation of the current movies placement is already in the pastMovies array, then checkRepeats is true
+    if ((pastMovies.includes(repeatObj)) || (pastMovies.includes(repeatObj))) { //im not sure if this code is going to work
+        return true;
+    }
+    else {
+        return false;
+    }
+};
 //A score keeping variable
 var score = 0;
+
+//A variable to determine whether or not a special scenerio of ties/draws is encountered
+var isDraw = false;
 
 //The user makes a choice between movie A and movie B
 var userChoice = "";
@@ -42,13 +62,19 @@ var winner = "";
 var winningCreteria = "year";
 var determineWinner = function(){
     if (currentMovieA.winningCreteria > currentMovieB.winningCreteria){
+        console.log("log: movieA wins")
         winner = currentMovieA;
     }
     else if (currentMovieA.winningCreteria < currentMovieB.winningCreteria){
+        console.log("log: movieA losses")
         winner = currentMovieB;
     }
+    else if (currentMovieA.winningCreteria === currentMovieB.winningCreteria){
+        console.log("log: movies are tied")
+        isDraw = true;
+    }
     else {
-        console.log("from line 43, no winner was successfully declared")
+        console.log("log: no winner was successfully declared")
     }
 }
     
@@ -57,12 +83,17 @@ var winOrLose = function () {
     //Calling the determineWinner function since it should always be called before the winOrLose function anyway
     determineWinner();
     //If the user correctly choses the winner, the game goes on
-    if (userChoice === winner) {
+    if ( (userChoice === winner) || (isDraw) ) {
         score++;
         storepastMovies();
         "Pick 2 new movies"
-        "check for repeats, if yes then pick 2 new movies, if no, then return early"
-        "render cards, - (This should still be handled by the img click eventlistner below) wait for userChoice then winOrLose again"
+        // check for repeats, if false then pick 2 new movies, if true, then return early
+        if (checkRepeats){
+            return;
+        }
+        else {
+        "render cards for the next round, - (This should still be handled by the img click eventlistner below) wait for userChoice then winOrLose again"
+        }
     }
     else {
         "give feedback that yells GAME OVER"
