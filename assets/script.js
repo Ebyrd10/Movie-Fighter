@@ -20,16 +20,17 @@ var currentMovieB = {
 // var currentMovieA;
 // var currentMovieB;
 //A past movie array that is pushed to after every round to make sure that the same two movies dont appear twice
-var pastMovies = [
-    { movieA: "", movieB: "" }
-]
+var pastMovies = [];
 //This function stores pastMovies for the duration of the session so that the same 2 movies are not repeated twice in 1 game
 var storepastMovies = function (){
-    var newEntry = {};
-    newEntry.movieA = currentMovieA.title;
-    newEntry.movieB = currentMovieB.title;
+    var newEntry = {
+        movieA = currentMovieA.title,
+        movieB = currentMovieB.title
+    };
     pastMovies.push(newEntry);
 };
+
+//Returns true for a repeat, false for a new set
 var checkRepeats = function () {
     repeatObj = {
         movieA: currentMovieA.title,
@@ -37,11 +38,11 @@ var checkRepeats = function () {
 
     };
     repeatObjInverse = {
-        movieB: currentMovieB.title,
-        movieA: currentMovieA.title
+        movieA: currentMovieB.title,
+        movieB: currentMovieA.title
     };
     //If the current movie, or a variation of the current movies placement is already in the pastMovies array, then checkRepeats is true
-    if ((pastMovies.includes(repeatObj)) || (pastMovies.includes(repeatObj))) { //im not sure if this code is going to work
+    if ((pastMovies.includes(repeatObj)) || (pastMovies.includes(repeatObjInverse))) { //im not sure if this code is going to work
         return true;
     }
     else {
