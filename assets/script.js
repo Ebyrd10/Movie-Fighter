@@ -60,9 +60,9 @@ var score = 0;
 var isDraw = false;
 
 //The user makes a choice between movie A and movie B
-var userChoice = "";
+var userChoice;
 //The winner between A and B is a result of comparing their winningCreteria
-var winner = "";
+var winner;
 // the winningCreteria must match one of the properites of the currentMovie objects, the default is the year of release
 var winningCreteria = "year";
 var determineWinner = function(){
@@ -139,7 +139,7 @@ function checkForEnd()
     }
 }
 
-//This function ends the game: The parameter determines if they got a wrong answer (false), or completed all pairs(true)
+//This function ends the game: The parameter determines if they got a wrong answer (false), or completed all pairs (true)
 function endGame(victory) 
 {
     //"give feedback that yells GAME OVER"
