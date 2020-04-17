@@ -91,8 +91,7 @@ var winOrLose = function () {
     if ( (userChoice === winner) || (isDraw) ) {
         score++;
         storepastMovies();
-        "Pick 2 new movies"
-        // check for repeats, if false then pick 2 new movies, if true, then return early
+        //Pick 2 new movies
         selectMovies();
     }
     else {
@@ -130,7 +129,7 @@ function selectMovies()
 //This function will return true if there are no remaining combinations
 function checkForEnd() 
 {
-    if(pastMovies.length >= currentMovieArray.length-1)
+    if(pastMovies.length >= (currenMovieArray.length*currentMovieArray.length-1))
     {
         return true;
     }
