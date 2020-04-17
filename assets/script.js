@@ -51,6 +51,17 @@ var checkRepeats = function () {
 };
 //A score keeping variable
 var score = 0;
+//An array of the numbers that keeps track of high scores
+var highScoreList = [];
+// A function that adds the current score as a high score
+var addHighScore = function (){
+    highScoreList.push(score);
+}
+//A function to save our highscore list to local storage
+var saveToLocalStorage = function() {
+    var highScoreListStr = JSON.stringify(highScoreList);
+    localStorage.setItem("storedHighScoreList", highScoreListStr); 
+  };
 
 //A variable to determine whether or not a special scenerio of ties/draws is encountered
 var isDraw = false;
@@ -98,7 +109,10 @@ var winOrLose = function () {
     }
     else {
         "give feedback that yells GAME OVER"
-        "save score to the list of highscores"
+        //Add the final score to the highscore list
+        addHighScore();
+        //Save the highscore list to local storage
+        saveToLocalStorage();
         "go to the highscore Screen"
     }
 
