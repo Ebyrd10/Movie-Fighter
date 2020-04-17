@@ -16,6 +16,10 @@ var currentMovieB = {
     boxOffice: "",
     posterRef: ""
 };
+
+//This variable is the movie array in use. It should be set equal to a pre-made array at the beginning of the game.
+var currentMovieArray = [];
+
 //The two variables below are how they wil actaully look in the code at the end of the day
 // var currentMovieA;
 // var currentMovieB;
@@ -89,20 +93,60 @@ var winOrLose = function () {
         storepastMovies();
         "Pick 2 new movies"
         // check for repeats, if false then pick 2 new movies, if true, then return early
-        if (checkRepeats){
-            return;
-        }
-        else {
-        "render cards for the next round, - (This should still be handled by the img click eventlistner below) wait for userChoice then winOrLose again"
-        }
+        selectMovies();
     }
     else {
-        "give feedback that yells GAME OVER"
-        "save score to the list of highscores"
-        "go to the highscore Screen"
+        endGame(false); //Player loses the game for an incorrect answer
     }
 
 };
+
+//This function sets currentMovieA and currentMovieB to two new valid choices from the array
+function selectMovies() 
+{
+    var validPair = false;
+    while(!validPair)
+    {
+        var movieAIndex = Math.floor(Math.random()*currentMovieArray.length);
+        currentMovieA = currentMovieArray[movieAIndex];
+        var movieBIndex = Math.floor(Math.random()*currentMovieArray.length);
+        currentMovieB = currentMovieArray[movieBIndex];
+        if(currentMovieA === currentMovieB || checkRepeats())
+        {
+            validPair = false;
+            if(checkForEnd())
+            {
+                endGame(true);
+                return;
+            }
+        }
+        else
+        {
+            validPair = true;
+        }
+    }
+}
+
+//This function will return true if there are no remaining combinations
+function checkForEnd() 
+{
+    if(pastMovies.length >= currentMovieArray.length-1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+//This function ends the game: The parameter determines if they got a wrong answer (false), or completed all pairs(true)
+function endGame(victory) 
+{
+    //"give feedback that yells GAME OVER"
+    //"save score to the list of highscores"
+    //"go to the highscore Screen"
+}
 
 //On clicking an image, that image becomes  userChoice and it calls the winOrlose function to see if the userChoice was correct
 $("img").on("click", function(){
