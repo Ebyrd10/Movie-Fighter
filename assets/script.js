@@ -55,6 +55,17 @@ var checkRepeats = function () {
 };
 //A score keeping variable
 var score = 0;
+//An array of the numbers that keeps track of high scores
+var highScoreList = [];
+// A function that adds the current score as a high score
+var addHighScore = function (){
+    highScoreList.push(score);
+}
+//A function to save our highscore list to local storage
+var saveToLocalStorage = function() {
+    var highScoreListStr = JSON.stringify(highScoreList);
+    localStorage.setItem("storedHighScoreList", highScoreListStr); 
+  };
 
 //A variable to determine whether or not a special scenerio of ties/draws is encountered
 var isDraw = false;
@@ -142,9 +153,13 @@ function checkForEnd()
 //This function ends the game: The parameter determines if they got a wrong answer (false), or completed all pairs (true)
 function endGame(victory) 
 {
-    //"give feedback that yells GAME OVER"
-    //"save score to the list of highscores"
-    //"go to the highscore Screen"
+    "give feedback that yells GAME OVER"
+     //Add the final score to the highscore list
+     addHighScore();
+     //Save the highscore list to local storage
+     saveToLocalStorage();
+     "go to the highscore Screen"
+  
 }
 
 //On clicking an image, that image becomes  userChoice and it calls the winOrlose function to see if the userChoice was correct
