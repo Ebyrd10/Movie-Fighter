@@ -17,12 +17,13 @@ var currentMovieB = {
     posterRef: ""
 };
 
-//This variable is the movie array in use. It should be set equal to a pre-made array at the beginning of the game.
-var currentMovieArray = [];
 
 //The two variables below are how they wil actaully look in the code at the end of the day
 // var currentMovieA;
 // var currentMovieB;
+
+//This variable is the movie array in use. It should be set equal to a pre-made array at the beginning of the game.
+var currentMovieArray = [];
 //A past movie array that is pushed to after every round to make sure that the same two movies dont appear twice
 var pastMovies = [];
 //This function stores pastMovies for the duration of the session so that the same 2 movies are not repeated twice in 1 game
@@ -129,10 +130,16 @@ function selectMovies()
     var validPair = false;
     while(!validPair)
     {
+        //Gets two movie names at random from the currentMovieArray
         var movieAIndex = Math.floor(Math.random()*currentMovieArray.length);
         currentMovieA = currentMovieArray[movieAIndex];
         var movieBIndex = Math.floor(Math.random()*currentMovieArray.length);
         currentMovieB = currentMovieArray[movieBIndex];
+
+        //Populates the current movies with their API data, transforming just a string into an object with different properties
+        currentMovieA = GetMovieData(currentMovieA);
+        currentMovieB = GetMovieData(currentMovieB);
+
         if(currentMovieA === currentMovieB || checkRepeats())
         {
             validPair = false;
@@ -178,17 +185,17 @@ function endGame(victory)
 displayHighScores = function(){
     //This deals with the positioning of the list
     //Clears the movie cards to make way for a highscore list
-    document.getElementById("movieCardA").html="";
-    document.getElementById("movieCardB").html="";
+    $("#movieCardA").html="";
+    $("#movieCardB").html="";
     //Clears the highscore list if it exists to make way for new highscores
-    document.getElementById("DisplayHighScores").textContent="";
+    $("#DisplayHighScores").textContent="";
 
     //This deal with the creation of the list
     //loops through the HighScores array and create a new listitem for every entry
     for (i= 0; i < highScoreList.length; i++){
-        var listitem = document.createElement("li");
+        var listitem = $("<li>");
         listitem.textContent = highScoreList[i].name + " : " + highScoreList[i].score;
-        document.getElementById("DisplayHighScores").appendChild(listitem);
+        $("#DisplayHighScores").append(listitem);
     }
     };
 
