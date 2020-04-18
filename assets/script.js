@@ -59,8 +59,9 @@ for(var i = 0; i < allParameters.length; i++)
     paraMenu.append(newOption);
 }
 
+
 //This function pushes the current movies as an object into the past movies array
-var storepastMovies = function (){
+function storepastMovies(){
     var newEntry = {
         movieA = currentMovieA.title,
         movieB = currentMovieB.title
@@ -69,7 +70,7 @@ var storepastMovies = function (){
 };
 
 //Returns true for a repeat, false for a new set
-var checkRepeats = function () {
+function checkRepeats() {
     repeatObj = {
         movieA: currentMovieA.title,
         movieB: currentMovieB.title
@@ -89,11 +90,11 @@ var checkRepeats = function () {
 };
 
 // A function that adds the current score as a high score
-var addHighScore = function (){
+function addHighScore(){
     highScoreList.push(score);
 }
 //A function to save our highscore list to local storage
-var saveToLocalStorage = function() {
+function saveToLocalStorage() {
     var highScoreListStr = JSON.stringify(highScoreList);
     localStorage.setItem("storedHighScoreList", highScoreListStr); 
   };
@@ -107,7 +108,7 @@ var userChoice;
 var winner;
 // the winningCreteria must match one of the properites of the currentMovie objects, the default is the year of release
 var winningCreteria = "year";
-var determineWinner = function(){
+function determineWinner(){
     if (currentMovieA.winningCreteria > currentMovieB.winningCreteria){
         console.log("log: movieA wins")
         winner = currentMovieA;
@@ -126,7 +127,7 @@ var determineWinner = function(){
 }
     
 //Comparing userChoice to the actual winner
-var winOrLose = function () {
+function winOrLose() {
     //Calling the determineWinner function since it should always be called before the winOrLose function anyway
     determineWinner();
     //If the user correctly choses the winner, the game goes on
