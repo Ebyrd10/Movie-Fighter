@@ -59,7 +59,18 @@ var score = 0;
 var highScoreList = [];
 // A function that adds the current score as a high score
 var addHighScore = function (){
-    highScoreList.push(score);
+    var newScore = {
+        name :"",
+        playerscore: score
+    };
+    //do not allow scores of 0 to be entered into the highscore list, instead alert out that they lost
+    if (playerscore > 0){
+        // newScore.name = prompt("Please enter your name"); //cant use alerts or prompts
+        //if there is no name, set the name to anonymous
+        if ((newScore.name = "") || !newScore.name){
+        highScoreList.push(newScore)
+        };
+    }
 }
 //A function to save our highscore list to local storage
 var saveToLocalStorage = function() {
@@ -98,7 +109,7 @@ var determineWinner = function(){
 var winOrLose = function () {
     //Calling the determineWinner function since it should always be called before the winOrLose function anyway
     determineWinner();
-    //If the user correctly choses the winner, the game goes on
+    //If the user correctly choses the winner, OR a draw is encountered, the game goes on
     if ( (userChoice === winner) || (isDraw) ) {
         score++;
         storepastMovies();
@@ -159,9 +170,30 @@ function endGame(victory)
      addHighScore();
      //Save the highscore list to local storage
      saveToLocalStorage();
+     //Display the Highscores onto the page
      "go to the highscore Screen"
   
 }
+//This function displays the current high scores list
+displayHighScores = function(){
+    //This deals with the positioning of the list
+    //Clears the movie cards to make way for a highscore list
+    document.getElementById("movieCardA").html="";
+    document.getElementById("movieCardB").html="";
+    //Clears the highscore list if it exists to make way for new highscores
+    document.getElementById("DisplayHighScores").textContent="";
+
+    //This deal with the creation of the list
+    //loops through the HighScores array and create a new listitem for every entry
+    for (i= 0; i < highScoreList.length; i++){
+        var listitem = document.createElement("li");
+        listitem.textContent = highScoreList[i].name + " : " + highScoreList[i].score;
+        document.getElementById("DisplayHighScores").appendChild(listitem);
+    }
+    };
+
+
+
 
 //On clicking an image, that image becomes  userChoice and it calls the winOrlose function to see if the userChoice was correct
 $("img").on("click", function(){
