@@ -23,9 +23,43 @@ var currentMovieArray = [];
 //The two variables below are how they wil actaully look in the code at the end of the day
 // var currentMovieA;
 // var currentMovieB;
+
 //A past movie array that is pushed to after every round to make sure that the same two movies dont appear twice
 var pastMovies = [];
-//This function stores pastMovies for the duration of the session so that the same 2 movies are not repeated twice in 1 game
+
+//This array stores the avilable parameters
+var allParameters = [
+    rating = {name: "rating", menuDesc: "Higher Rating", description: "Choose the higher rated movie."},
+    runtime = {name: "runtime", menuDesc: "Longer runtime", description: "Choose the longer movie."},
+    year = {name: "year", menuDesc: "Newer movie", description: "Choose the newer movie."},
+    boxOffice = {name: "boxOffice", menuDesc: "Highest Box Office", description: "Choose the movie with the higher box office."}
+];
+
+//A score keeping variable
+var score = 0;
+//An array of the numbers that keeps track of high scores
+var highScoreList = [];
+
+//Inital behavior
+var movieMenu = $(".movieSetMenu"); //TODO: Make this sync up with the HTML
+for(var i = 0; i < MovieNames.allMovieSets.length; i++)
+{
+    var newOption = $("<option>");
+    newOption.val(i);
+    newOption.text(movieNames.allMovieSets[i].name);
+    movieMenu.append(newOption);
+}
+
+var paraMenu = $(".parameterMenu"); //TODO: Make this sync up with the HTML
+for(var i = 0; i < allParameters.length; i++)
+{
+    var newOption = $("<option>");
+    newOption.val(allParameters[i].name);
+    newOption.text(allParameters[i].menuDesc);
+    paraMenu.append(newOption);
+}
+
+//This function pushes the current movies as an object into the past movies array
 var storepastMovies = function (){
     var newEntry = {
         movieA = currentMovieA.title,
@@ -53,10 +87,7 @@ var checkRepeats = function () {
         return false;
     }
 };
-//A score keeping variable
-var score = 0;
-//An array of the numbers that keeps track of high scores
-var highScoreList = [];
+
 // A function that adds the current score as a high score
 var addHighScore = function (){
     highScoreList.push(score);
