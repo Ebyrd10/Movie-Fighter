@@ -6,6 +6,15 @@ h1 {
   background-color: #339CFF;
 }
 
+#highscore-button {
+  text-align: center;
+  font-family: 'Press Start 2P';
+  font-size: 25px;
+  color: #339CFF;
+  background-color: #FFD133;
+  width: 15px; 
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -61,6 +70,26 @@ body {
 ul {
   list-style: none;
 }
+
+#button-A {
+  display: inline-block;
+  text-align: center;
+  font-family: 'Press Start 2P';
+  font-size: 25px;
+  color: #339CFF;
+  background-color: #FFD133;
+}
+
+#button-B {
+  display: inline-block;
+  text-align: center;
+  font-family: 'Press Start 2P';
+  font-size: 25px;
+  color: #339CFF;
+  background-color: #FFD133;
+}
+
+
 
 
 
