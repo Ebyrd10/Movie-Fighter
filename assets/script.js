@@ -181,6 +181,12 @@ function endGame(victory)
      "go to the highscore Screen"
   
 }
+
+//Prototype pseudo code of render cards
+var renderCards = function(){
+    
+}
+
 //This function displays the current high scores list
 displayHighScores = function(){
     //This deals with the positioning of the list
@@ -188,7 +194,14 @@ displayHighScores = function(){
     $("#movieCardA").html="";
     $("#movieCardB").html="";
     //Clears the highscore list if it exists to make way for new highscores
+    if ($("#DisplayHighScores")){
     $("#DisplayHighScores").textContent="";
+    };
+
+    //This deals with the creation of the actual highscore display section
+    displayHighScoresDiv = $("<div");
+    displayHighScoresDiv.attr("id", "DisplayHighScores")
+    $("container").append(displayHighScoresDiv)
 
     //This deal with the creation of the list
     //loops through the HighScores array and create a new listitem for every entry
