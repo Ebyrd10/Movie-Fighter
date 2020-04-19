@@ -129,15 +129,16 @@ var userChoice;
 var winner;
 
 function determineWinner(){
-    if (currentMovieA.winningCreteria > currentMovieB.winningCreteria){
+    var winningCreteriaName = winningCreteria.name;
+    if (currentMovieA[winningCreteriaName] > currentMovieB[winningCreteriaName]){
         console.log("log: movieA wins")
         winner = currentMovieA;
     }
-    else if (currentMovieA.winningCreteria < currentMovieB.winningCreteria){
+    else if (currentMovieA[winningCreteriaName] < currentMovieB[winningCreteriaName]){
         console.log("log: movieA losses")
         winner = currentMovieB;
     }
-    else if (currentMovieA.winningCreteria === currentMovieB.winningCreteria){
+    else if (currentMovieA[winningCreteriaName] === currentMovieB[winningCreteriaName]){
         console.log("log: movies are tied")
         isDraw = true;
     }
