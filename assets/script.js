@@ -20,6 +20,9 @@ var currentMovieB = {
 //This variable is the movie array in use. It should be set equal to a pre-made array at the beginning of the game.
 var currentMovieArray = [];
 
+// the winningCreteria must match one of the properites of the currentMovie objects
+var winningCreteria;
+
 //The two variables below are how they wil actaully look in the code at the end of the day
 // var currentMovieA;
 // var currentMovieB;
@@ -54,11 +57,24 @@ var paraMenu = $(".parameterMenu"); //TODO: Make this sync up with the HTML
 for(var i = 0; i < allParameters.length; i++)
 {
     var newOption = $("<option>");
-    newOption.val(allParameters[i].name);
+    newOption.val(i);
     newOption.text(allParameters[i].menuDesc);
     paraMenu.append(newOption);
 }
 
+//This function begins the game when the player pushes the start button TODO: HTML call
+$(".startButton").on("click",startGame);
+function startGame()
+{
+    //This sets the currentMovieArray to the player's choice
+    var movieChoice = $(".movieSetMenu").val();
+    var movieChoiceObject = MovieNames.allMovieSets[movieChoice];
+    currentMovieArray = movieChoiceObject.array;
+
+    //This sets the parameter to the player's choice
+    var paraChoice = $(".parameterMenu").val();
+    winningCreteria = allParameters[paraChoice];
+}
 
 //This function pushes the current movies as an object into the past movies array
 function storepastMovies(){
@@ -106,8 +122,7 @@ var isDraw = false;
 var userChoice;
 //The winner between A and B is a result of comparing their winningCreteria
 var winner;
-// the winningCreteria must match one of the properites of the currentMovie objects, the default is the year of release
-var winningCreteria = "year";
+
 function determineWinner(){
     if (currentMovieA.winningCreteria > currentMovieB.winningCreteria){
         console.log("log: movieA wins")
