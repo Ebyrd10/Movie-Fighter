@@ -182,10 +182,6 @@ function endGame(victory)
   
 }
 
-//Prototype pseudo code of render cards
-var renderCards = function(){
-    
-}
 
 //This function displays the current high scores list
 displayHighScores = function(){
