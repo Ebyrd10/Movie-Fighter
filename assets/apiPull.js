@@ -18,7 +18,8 @@ function GetMovieData(name)
             runtime: data.Runtime,
             year: data.Released,
             boxOffice: data.BoxOffice,
-            posterRef: null
+            posterRef: null,
+            review: null
         };
 
         movieObject.runtime = movieObject.runtime.replace("min","");
@@ -32,6 +33,12 @@ function GetMovieData(name)
 
         var movieID = data.imdbID;
         movieObject.posterRef = "http://img.omdbapi.com/?apikey=" + APIkey + "&i=" + movieID;
+
+        var reviewOutput = GetReview(name);
+        if(reviewOutput !== -1)
+        {
+            movieObject.review = reviewOutput;
+        }
 
         console.log(movieObject);
         return(movieObject);

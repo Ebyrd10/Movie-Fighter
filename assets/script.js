@@ -18,16 +18,79 @@ var currentMovieB = {
 };
 
 
+// the winningCreteria must match one of the properites of the currentMovie objects
+var winningCreteria;
+
 //The two variables below are how they wil actaully look in the code at the end of the day
 // var currentMovieA;
 // var currentMovieB;
 
+
 //This variable is the movie array in use. It should be set equal to a pre-made array at the beginning of the game.
 var currentMovieArray = [];
+
 //A past movie array that is pushed to after every round to make sure that the same two movies dont appear twice
 var pastMovies = [];
-//This function stores pastMovies for the duration of the session so that the same 2 movies are not repeated twice in 1 game
-var storepastMovies = function (){
+
+//This array stores the avilable parameters
+var allParameters = [
+    rating = {name: "rating", menuDesc: "Higher Rating", description: "Choose the higher rated movie."},
+    runtime = {name: "runtime", menuDesc: "Longer runtime", description: "Choose the longer movie."},
+    year = {name: "year", menuDesc: "Newer movie", description: "Choose the newer movie."},
+    boxOffice = {name: "boxOffice", menuDesc: "Highest Box Office", description: "Choose the movie with the higher box office."}
+];
+
+//A score keeping variable
+var score = 0;
+//An array of the numbers that keeps track of high scores
+var highScoreList = [];
+
+//Inital behavior
+var movieMenu = $(".movieSetMenu"); //TODO: Make this sync up with the HTML
+for(var i = 0; i < MovieNames.allMovieSets.length; i++)
+{
+    var newOption = $("<option>");
+    newOption.val(i);
+    newOption.text(movieNames.allMovieSets[i].name);
+    movieMenu.append(newOption);
+}
+
+var paraMenu = $(".parameterMenu"); //TODO: Make this sync up with the HTML
+for(var i = 0; i < allParameters.length; i++)
+{
+    var newOption = $("<option>");
+    newOption.val(i);
+    newOption.text(allParameters[i].menuDesc);
+    paraMenu.append(newOption);
+}
+
+//Gets and sets the high score list from storage
+if(localStorage.getItem("highScoreList") !== null)
+{
+    highScoreList = JSON.parse(localStorage.getItem("highScoreList"));
+}
+
+//This function begins the game when the player pushes the start button TODO: HTML call
+$(".startButton").on("click",startGame);
+function startGame()
+{
+    //This sets the currentMovieArray to the player's choice
+    var movieChoice = $(".movieSetMenu").val();
+    var movieChoiceObject = MovieNames.allMovieSets[movieChoice];
+    currentMovieArray = movieChoiceObject.array;
+
+    //This sets the parameter to the player's choice
+    var paraChoice = $(".parameterMenu").val();
+    winningCreteria = allParameters[paraChoice];
+
+    //TODO: Code for changing the screen. Get the approach Jennel is using
+
+    selectMovies();
+    displayMovies();
+}
+
+//This function pushes the current movies as an object into the past movies array
+function storepastMovies(){
     var newEntry = {
         movieA = currentMovieA.title,
         movieB = currentMovieB.title
@@ -36,7 +99,7 @@ var storepastMovies = function (){
 };
 
 //Returns true for a repeat, false for a new set
-var checkRepeats = function () {
+function checkRepeats() {
     repeatObj = {
         movieA: currentMovieA.title,
         movieB: currentMovieB.title
@@ -54,11 +117,12 @@ var checkRepeats = function () {
         return false;
     }
 };
-//A score keeping variable
-var score = 0;
-//An array of the numbers that keeps track of high scores
-var highScoreList = [];
+
 // A function that adds the current score as a high score
+
+function addHighScore(){
+    highScoreList.push(score);
+
 var addHighScore = function (){
     var newScore = {
         name :"",
@@ -72,9 +136,10 @@ var addHighScore = function (){
         highScoreList.push(newScore)
         };
     }
+
 }
 //A function to save our highscore list to local storage
-var saveToLocalStorage = function() {
+function saveToLocalStorage() {
     var highScoreListStr = JSON.stringify(highScoreList);
     localStorage.setItem("storedHighScoreList", highScoreListStr); 
   };
@@ -83,21 +148,21 @@ var saveToLocalStorage = function() {
 var isDraw = false;
 
 //The user makes a choice between movie A and movie B
-var userChoice = "";
+var userChoice;
 //The winner between A and B is a result of comparing their winningCreteria
-var winner = "";
-// the winningCreteria must match one of the properites of the currentMovie objects, the default is the year of release
-var winningCreteria = "year";
-var determineWinner = function(){
-    if (currentMovieA.winningCreteria > currentMovieB.winningCreteria){
+var winner;
+
+function determineWinner(){
+    var winningCreteriaName = winningCreteria.name;
+    if (currentMovieA[winningCreteriaName] > currentMovieB[winningCreteriaName]){
         console.log("log: movieA wins")
         winner = currentMovieA;
     }
-    else if (currentMovieA.winningCreteria < currentMovieB.winningCreteria){
+    else if (currentMovieA[winningCreteriaName] < currentMovieB[winningCreteriaName]){
         console.log("log: movieA losses")
         winner = currentMovieB;
     }
-    else if (currentMovieA.winningCreteria === currentMovieB.winningCreteria){
+    else if (currentMovieA[winningCreteriaName] === currentMovieB[winningCreteriaName]){
         console.log("log: movies are tied")
         isDraw = true;
     }
@@ -107,15 +172,19 @@ var determineWinner = function(){
 }
     
 //Comparing userChoice to the actual winner
+
+function winOrLose() {
+    //If the user correctly choses the winner, the game goes on
+
 var winOrLose = function () {
     //Calling the determineWinner function since it should always be called before the winOrLose function anyway
     determineWinner();
     //If the user correctly choses the winner, OR a draw is encountered, the game goes on
+
     if ( (userChoice === winner) || (isDraw) ) {
         score++;
         storepastMovies();
-        "Pick 2 new movies"
-        // check for repeats, if false then pick 2 new movies, if true, then return early
+        //Pick 2 new movies
         selectMovies();
     }
     else {
@@ -156,10 +225,26 @@ function selectMovies()
     }
 }
 
+//This function sets the HTML elements to display summaries and images for the movies
+//TODO: HTML call
+function displayMovies()
+{
+    $(".movieATitle").text(currentMovieA.title);
+    $(".movieBTitle").text(currentMovieB.title);
+
+    $(".movieAReview").text(currentMovieA.review);
+    $(".movieBReview").text(currentMovieB.review);
+
+    var movieAImage = $(".movieAImg");
+    var movieBImage = $(".movieBImg");
+    movieAImage.attr("src",currentMovieA.posterRef);
+    movieBImage.attr("src",currentMovieB.posterRef);
+}
+
 //This function will return true if there are no remaining combinations
 function checkForEnd() 
 {
-    if(pastMovies.length >= currentMovieArray.length-1)
+    if(pastMovies.length >= (currenMovieArray.length*currentMovieArray.length-1))
     {
         return true;
     }
@@ -169,7 +254,7 @@ function checkForEnd()
     }
 }
 
-//This function ends the game: The parameter determines if they got a wrong answer (false), or completed all pairs(true)
+//This function ends the game: The parameter determines if they got a wrong answer (false), or completed all pairs (true)
 function endGame(victory) 
 {
     "give feedback that yells GAME OVER"
@@ -203,7 +288,17 @@ displayHighScores = function(){
 
 
 //On clicking an image, that image becomes  userChoice and it calls the winOrlose function to see if the userChoice was correct
-$("img").on("click", function(){
-    userChoice = "$(this).image"; //pseudocode, not real code
+//TODO: HTML call to a tag on both the images
+$(".movieImage").on("click", function(){
+    var userChoiceLetter = $(this).val(); //pseudocode, not real code TODO: Get a reference to the object's value: A or B
+    if(userChoiceLetter === "A")
+    {
+        userChoice = currentMovieA;
+    }
+    else
+    {
+        userChoice = currentMovieB;
+    }
+    determineWinner();
     winOrLose();
 });
