@@ -148,8 +148,6 @@ function determineWinner(){
     
 //Comparing userChoice to the actual winner
 function winOrLose() {
-    //Calling the determineWinner function since it should always be called before the winOrLose function anyway
-    determineWinner();
     //If the user correctly choses the winner, the game goes on
     if ( (userChoice === winner) || (isDraw) ) {
         score++;
@@ -192,7 +190,7 @@ function selectMovies()
 //This function sets the HTML elements to display summaries and images for the movies
 function displayMovies()
 {
-    
+
 }
 
 //This function will return true if there are no remaining combinations
@@ -221,7 +219,17 @@ function endGame(victory)
 }
 
 //On clicking an image, that image becomes  userChoice and it calls the winOrlose function to see if the userChoice was correct
-$("img").on("click", function(){
-    userChoice = "$(this).image"; //pseudocode, not real code
+//TODO: HTML call to a tag on both the images
+$(".movieImage").on("click", function(){
+    var userChoiceLetter = $(this).val(); //pseudocode, not real code TODO: Get a reference to the object's value: A or B
+    if(userChoiceLetter === "A")
+    {
+        userChoice = currentMovieA;
+    }
+    else
+    {
+        userChoice = currentMovieB;
+    }
+    determineWinner();
     winOrLose();
 });
