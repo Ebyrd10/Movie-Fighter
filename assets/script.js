@@ -203,6 +203,7 @@ function displayMovies()
 
     $(".movieAReview").text(currentMovieA.review);
     $(".movieBReview").text(currentMovieB.review);
+    //TODO: Code for pop up - if needed
 
     var movieAImage = $(".movieAImg");
     var movieBImage = $(".movieBImg");
