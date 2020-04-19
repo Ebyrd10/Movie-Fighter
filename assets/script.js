@@ -333,6 +333,8 @@ var movingStartMenu = function () {
                 console.log("RandomPicker or swtich statement failed");
         }
     }, 250)//End of setInterval
-    // clearInterval(moveStartTimer); //Clears the timer if the start section on longer exists
+    if ($("#start-button") = null){
+        clearInterval(moveStartTimer); //Clears the timer if the start section on longer exists
+    }
 };//end of movingStartMenu
 movingStartMenu();
