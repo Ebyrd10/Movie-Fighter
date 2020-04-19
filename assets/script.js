@@ -62,6 +62,12 @@ for(var i = 0; i < allParameters.length; i++)
     paraMenu.append(newOption);
 }
 
+//Gets and sets the high score list from storage
+if(localStorage.getItem("highScoreList") !== null)
+{
+    highScoreList = JSON.parse(localStorage.getItem("highScoreList"));
+}
+
 //This function begins the game when the player pushes the start button TODO: HTML call
 $(".startButton").on("click",startGame);
 function startGame()
@@ -75,7 +81,7 @@ function startGame()
     var paraChoice = $(".parameterMenu").val();
     winningCreteria = allParameters[paraChoice];
 
-    //TODO: Code for changing the screen
+    //TODO: Code for changing the screen. Get the approach Jennel is using
 
     selectMovies();
     displayMovies();
