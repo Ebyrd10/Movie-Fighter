@@ -195,9 +195,19 @@ function selectMovies()
 }
 
 //This function sets the HTML elements to display summaries and images for the movies
+//TODO: HTML call
 function displayMovies()
 {
+    $(".movieATitle").text(currentMovieA.title);
+    $(".movieBTitle").text(currentMovieB.title);
 
+    $(".movieAReview").text(currentMovieA.review);
+    $(".movieBReview").text(currentMovieB.review);
+
+    var movieAImage = $(".movieAImg");
+    var movieBImage = $(".movieBImg");
+    movieAImage.attr("src",currentMovieA.posterRef);
+    movieBImage.attr("src",currentMovieB.posterRef);
 }
 
 //This function will return true if there are no remaining combinations
