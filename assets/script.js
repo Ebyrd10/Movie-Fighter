@@ -46,6 +46,8 @@ var score = 0;
 var highScoreList = [];
 
 //Inital behavior
+var init = function(){
+//Creates the movie menu
 var movieMenu = $(".movieSetMenu"); //TODO: Make this sync up with the HTML
 for(var i = 0; i < MovieNames.allMovieSets.length; i++)
 {
@@ -55,6 +57,7 @@ for(var i = 0; i < MovieNames.allMovieSets.length; i++)
     movieMenu.append(newOption);
 }
 
+//Creates an option selection for each parameter
 var paraMenu = $(".parameterMenu"); //TODO: Make this sync up with the HTML
 for(var i = 0; i < allParameters.length; i++)
 {
@@ -64,11 +67,15 @@ for(var i = 0; i < allParameters.length; i++)
     paraMenu.append(newOption);
 }
 
-//Gets and sets the high score list from storage
+//Loads the highscore list from local storage if it exists
 if(localStorage.getItem("highScoreList") !== null)
 {
     highScoreList = JSON.parse(localStorage.getItem("highScoreList"));
 }
+
+};//End of initialzing function 
+//Calls the initializing function
+init();
 
 //This function begins the game when the player pushes the start button TODO: HTML call
 $(".startButton").on("click",startGame);
@@ -119,10 +126,6 @@ function checkRepeats() {
 };
 
 // A function that adds the current score as a high score
-
-function addHighScore(){
-    highScoreList.push(score);
-
 var addHighScore = function (){
     var newScore = {
         name :"",
@@ -136,7 +139,6 @@ var addHighScore = function (){
         highScoreList.push(newScore)
         };
     }
-
 }
 //A function to save our highscore list to local storage
 function saveToLocalStorage() {
@@ -172,10 +174,6 @@ function determineWinner(){
 }
     
 //Comparing userChoice to the actual winner
-
-function winOrLose() {
-    //If the user correctly choses the winner, the game goes on
-
 var winOrLose = function () {
     //Calling the determineWinner function since it should always be called before the winOrLose function anyway
     determineWinner();
@@ -206,7 +204,7 @@ function selectMovies()
         currentMovieB = currentMovieArray[movieBIndex];
 
         //Populates the current movies with their API data, transforming just a string into an object with different properties
-        currentMovieA = GetMovieData(currentMovieA);
+        currentMovieA = GetMovieData(currentMovieA);  //May not be needed if william populated the movies somewhere else in the code
         currentMovieB = GetMovieData(currentMovieB);
 
         if(currentMovieA === currentMovieB || checkRepeats())
@@ -225,21 +223,6 @@ function selectMovies()
     }
 }
 
-//This function sets the HTML elements to display summaries and images for the movies
-//TODO: HTML call
-function displayMovies()
-{
-    $(".movieATitle").text(currentMovieA.title);
-    $(".movieBTitle").text(currentMovieB.title);
-
-    $(".movieAReview").text(currentMovieA.review);
-    $(".movieBReview").text(currentMovieB.review);
-
-    var movieAImage = $(".movieAImg");
-    var movieBImage = $(".movieBImg");
-    movieAImage.attr("src",currentMovieA.posterRef);
-    movieBImage.attr("src",currentMovieB.posterRef);
-}
 
 //This function will return true if there are no remaining combinations
 function checkForEnd() 
@@ -293,6 +276,21 @@ displayHighScores = function(){
     }
     };
 
+    //This function sets the HTML elements to display summaries and images for the movies
+//TODO: HTML call
+function displayMovies()
+{
+    $(".movieATitle").text(currentMovieA.title);
+    $(".movieBTitle").text(currentMovieB.title);
+
+    $(".movieAReview").text(currentMovieA.review);
+    $(".movieBReview").text(currentMovieB.review);
+
+    var movieAImage = $(".movieAImg");
+    var movieBImage = $(".movieBImg");
+    movieAImage.attr("src",currentMovieA.posterRef);
+    movieBImage.attr("src",currentMovieB.posterRef);
+}
 
 
 
