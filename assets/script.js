@@ -74,6 +74,11 @@ function startGame()
     //This sets the parameter to the player's choice
     var paraChoice = $(".parameterMenu").val();
     winningCreteria = allParameters[paraChoice];
+
+    //TODO: Code for changing the screen
+
+    selectMovies();
+    displayMovies();
 }
 
 //This function pushes the current movies as an object into the past movies array
@@ -182,6 +187,12 @@ function selectMovies()
             validPair = true;
         }
     }
+}
+
+//This function sets the HTML elements to display summaries and images for the movies
+function displayMovies()
+{
+    
 }
 
 //This function will return true if there are no remaining combinations
