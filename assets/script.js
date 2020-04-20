@@ -35,8 +35,8 @@ var pastMovies = [];
 //This array stores the avilable parameters
 var allParameters = [
     rating = { name: "rating", menuDesc: "Higher Rating", description: "Choose the higher rated movie." },
-    runtime = { name: "runtime", menuDesc: "Longer runtime", description: "Choose the longer movie." },
-    year = { name: "year", menuDesc: "Newer movie", description: "Choose the newer movie." },
+    runtime = { name: "runtime", menuDesc: "Longer Runtime", description: "Choose the longer movie." },
+    year = { name: "year", menuDesc: "Newer Movie", description: "Choose the newer movie." },
     boxOffice = { name: "boxOffice", menuDesc: "Highest Box Office", description: "Choose the movie with the higher box office." }
 ];
 
@@ -57,7 +57,7 @@ var init = function () {
     }
 
     //Creates an option selection for each parameter
-    var paraMenu = $(".parameterMenu"); //TODO: Make this sync up with the HTML
+    var paraMenu = $("#parameterMenu"); //TODO: Make this sync up with the HTML
     for (var i = 0; i < allParameters.length; i++) {
         var newOption = $("<option>");
         newOption.val(i);
