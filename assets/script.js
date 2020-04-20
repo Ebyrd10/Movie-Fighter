@@ -241,10 +241,17 @@ function endGame(victory) {
 }
 
 //A function that clear the main image/moive section if ever needed
-var clearInfo = function() {
+var clearInfo = function () {
     $("#movie-images").html = "";
     $("#movie-info").html = "";
 };
+
+//A function that clears the highscores display div
+var clearHighScoresDisplay = function () {
+    if ($("#DisplayHighScores")) {
+        $("#DisplayHighScores").textContent = "";
+    };
+}; 
 
 //This function displays the current high scores list
 displayHighScores = function () {
@@ -252,9 +259,7 @@ displayHighScores = function () {
     //Clears the movie cards to make way for a highscore list
     clearInfo();
     //Clears the highscore list if it exists to make way for new highscores
-    if ($("#DisplayHighScores")){
-        $("#DisplayHighScores").textContent = "";
-    };
+   clearHighScoresDisplay();
 
     //This deals with the creation of the actual highscore display section
     displayHighScoresEl = $("<div");
@@ -343,7 +348,7 @@ var movingStartMenu = function () {
                 console.log("RandomPicker or swtich statement failed");
         }
     }, 250)//End of setInterval
-    if ($("#start-button") = null){
+    if ($("#start-button") = null) {
         clearInterval(moveStartTimer); //Clears the timer if the start section on longer exists
     }
 };//end of movingStartMenu
