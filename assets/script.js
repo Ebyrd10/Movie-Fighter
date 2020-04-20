@@ -231,27 +231,38 @@ function selectMovies() {
 //This function sets the HTML elements to display summaries and images for the movies
 //TODO: HTML call
 function displayMovies() {
-    $("#movie-A").text(currentMovieA.title);
-    $("#movie-B").text(currentMovieB.title);
+    console.log("start of display movies function")
+    console.log(currentMovieA)
+    console.log(currentMovieA.title)
+    console.log(currentMovieA.posterRef)
+    $("#choice-A").text(currentMovieA.title);
+    console.log(currentMovieA)
+    console.log(currentMovieA.title)
+    console.log($("#button-A"))
+    $("#button-B").text(currentMovieB.title);
 
     $(".movieAReview").text(currentMovieA.review);
     $(".movieBReview").text(currentMovieB.review);
     //TODO: Code for pop up - if needed
 
-    var movieAImage = $(".movieAImg");
-    var movieBImage = $(".movieBImg");
+    var movieAImage = $("#movAImg");
+    var movieBImage = $("#movBImg");
     movieAImage.attr("src", currentMovieA.posterRef);
     movieBImage.attr("src", currentMovieB.posterRef);
+    movieAImage.attr("alt", currentMovieA.title);
+    movieBImage.attr("alt", currentMovieB.title);
+    console.log("end of display movies function")
 }
 
 //This function will return true if there are no remaining combinations
 function checkForEnd() {
-    if (pastMovies.length >= (currenMovieArray.length * currentMovieArray.length - 1)) {
+    //This if statement may casue infinite loading screen hang
+    if (pastMovies.length >= (currentMovieArray.length * currentMovieArray.length - 1)) {
         return true;
     }
     else {
         return false;
-    }
+     }
 }
 
 //This function ends the game: The parameter determines if they got a wrong answer (false), or completed all pairs (true)
@@ -303,23 +314,6 @@ displayHighScores = function () {
 
 //If the highscores button is clicked then then it triggers the display Highscores function
 $("#highscore-button").on("click", displayHighScores());
-
-//This function sets the HTML elements to display summaries and images for the movies
-//TODO: HTML call
-function displayMovies() {
-    $(".movieATitle").text(currentMovieA.title);
-    $(".movieBTitle").text(currentMovieB.title);
-
-    $(".movieAReview").text(currentMovieA.review);
-    $(".movieBReview").text(currentMovieB.review);
-
-    var movieAImage = $(".movieAImg");
-    var movieBImage = $(".movieBImg");
-    movieAImage.attr("src", currentMovieA.posterRef);
-    movieBImage.attr("src", currentMovieB.posterRef);
-}
-
-
 
 //On clicking an image, that image becomes  userChoice and it calls the winOrlose function to see if the userChoice was correct
 //TODO: HTML call to a tag on both the images
