@@ -1,54 +1,60 @@
 var APIkey = "33d9d97b";
 var APInyt = "OnEXdchBuVPylzn2CiDtaSQLK1ih5pMU";
+var name;
 
 //Takes in a movie title and returns an object with various data pertaining to it. All all numbers, except for posterRef, which is an SRC
 //title: Movie's title. rating: IMDB rating (decimal). runtime: runtime in minutes. year: year of release. boxOffice: box office in USD
 //posterRef: SRC code for the film's poster
-function GetMovieData(name)
-{
-    name = name.toLowerCase();
-    name = name.replace("_"," ");
-    name = name.replace(" ","+");
-
+function GetMoviePull(callback){
     $.ajax({
         url: "http://www.omdbapi.com/?apikey=" + APIkey + "&t=" + name,
-        method: "GET"
-    }).then(function(data)
-    {
-        console.log("this is the data:");
-        console.log(data);
-        var movieObject ={
-            title: data.Title,
-            rating: data.imdbRating,
-            runtime: data.Runtime,
-            year: data.Released,
-            boxOffice: data.BoxOffice,
-            posterRef: null,
-            review: null
-        };
-
-        movieObject.runtime = movieObject.runtime.replace("min","");
-        movieObject.runtime = movieObject.runtime.trim();
-
-        var releaseYear = movieObject.year;
-        movieObject.year = releaseYear.slice(releaseYear.length-4,releaseYear.length);
-
-        movieObject.boxOffice = movieObject.boxOffice.replace("$","");
-        movieObject.boxOffice = movieObject.boxOffice.replace(/,/g,"");
-
-        var movieID = data.imdbID;
-        movieObject.posterRef = "http://img.omdbapi.com/?apikey=" + APIkey + "&i=" + movieID;
-
-        var reviewOutput = GetReview(name);
-        if(reviewOutput !== -1)
-        {
-            movieObject.review = reviewOutput;
+        method: "GET",
+        success: function(data){
+            var movieObject ={
+                title: data.Title,
+                rating: data.imdbRating,
+                runtime: data.Runtime,
+                year: data.Released,
+                boxOffice: data.BoxOffice,
+                posterRef: null,
+                review: null
+            };
+    
+            movieObject.runtime = movieObject.runtime.replace("min","");
+            movieObject.runtime = movieObject.runtime.trim();
+    
+            var releaseYear = movieObject.year;
+            movieObject.year = releaseYear.slice(releaseYear.length-4,releaseYear.length);
+    
+            movieObject.boxOffice = movieObject.boxOffice.replace("$","");
+            movieObject.boxOffice = movieObject.boxOffice.replace(/,/g,"");
+    
+            var movieID = data.imdbID;
+            movieObject.posterRef = "http://img.omdbapi.com/?apikey=" + APIkey + "&i=" + movieID;
+    
+            var reviewOutput = GetReview(name);
+            if(reviewOutput !== -1)
+            {
+                movieObject.review = reviewOutput;
+            }
+            else
+            {
+                movieObject.review = "";
+            }
+            callback(movieObject);
         }
+    })
+};
 
-        console.log("This is the movieObject");
-        console.log(movieObject);
-        return(movieObject);
+
+function GetMovieData(inputName)
+{
+    name = inputName;
+    var movieObject;
+    GetMoviePull(function(data) {
+        movieObject = data;
     });
+    return movieObject;
 }
 
 //Takes in a movie name and returns a short summary of the NYT review of it. 
@@ -63,7 +69,6 @@ function GetReview(name)
         url: "https://api.nytimes.com/svc/movies/v2/reviews/search.json?query="+ name + "&api-key=" + APInyt,
         method: "GET"
     }).then(function (data) {
-       console.log(data);
        var reviewArray = data.results;
        var targetMovieReview;
        for(var i = 0; i < reviewArray.length; i++)
@@ -78,12 +83,10 @@ function GetReview(name)
        }
        if(targetMovieReview === null || targetMovieReview.summary_short==="")
        {
-           console.log(-1);
            return -1;
        }
        else
        {
-           console.log(targetMovieReview.summary_short);
            return targetMovieReview.summary_short;
        }
     });

@@ -22,8 +22,8 @@
 var winningCreteria;
 
 //The two variables below are how they wil actaully look in the code at the end of the day
-var currentMovieA;
-var currentMovieB;
+var currentMovieA = {};
+var currentMovieB = {};
 
 
 //This variable is the movie array in use. It should be set equal to a pre-made array at the beginning of the game.
@@ -85,7 +85,7 @@ function startGame() {
         currentMovieArray = movieNames
         console.log("set movie array to default movieNames array in MovieNames.js")
     };
-    console.log("Current move array is: ")
+    console.log("Current movie array is: ")
     console.log(currentMovieArray)
 
     //This sets the parameter to the player's choice
@@ -206,15 +206,18 @@ function selectMovies() {
     while (!validPair) {
         //Gets two movie names at random from the currentMovieArray
         var movieAIndex = Math.floor(Math.random() * currentMovieArray.length);
-        currentMovieA = currentMovieArray[movieAIndex];
+        var movieATitle = currentMovieArray[movieAIndex];
         var movieBIndex = Math.floor(Math.random() * currentMovieArray.length);
+
         currentMovieB = currentMovieArray[movieBIndex];
 
         // //Populates the current movies with their API data, transforming just a string into an object with different properties
-        currentMovieA = GetMovieData(currentMovieA); 
+        currentMovieA = GetMovieData(movieATitle);
+        console.log("Title: " +movieATitle);
+        console.log("data" + GetMovieData(movieATitle));
+        console.log("MovieA: " + newMovieA);
         // currentMovieB = GetMovieData(currentMovieB);
         
-
 
         if (currentMovieA === currentMovieB || checkRepeats()) {
             validPair = false;
@@ -227,18 +230,14 @@ function selectMovies() {
             validPair = true;
         }
     }
-    console.log("Movie A: ")
-    console.log(currentMovieA)
-    console.log("Movie B: ")
-    console.log(currentMovieB)
 }
 
 //This function sets the HTML elements to display summaries and images for the movies
 //TODO: HTML call
 function displayMovies() {
-    console.log("start of display movies function")
+    //console.log("start of display movies function")
     if ((!currentMovieA.title) || (!currentMovieB.title)){
-        console.log("display movies returned early")
+        //console.log("display movies returned early")
         return;}
     $("#choice-A").text(currentMovieA.title);
     $("#button-B").text(currentMovieB.title);
@@ -253,7 +252,7 @@ function displayMovies() {
     movieBImage.attr("src", currentMovieB.posterRef);
     movieAImage.attr("alt", currentMovieA.title);
     movieBImage.attr("alt", currentMovieB.title);
-    console.log("end of display movies function")
+    //console.log("end of display movies function")
 }
 
 //This function will return true if there are no remaining combinations
