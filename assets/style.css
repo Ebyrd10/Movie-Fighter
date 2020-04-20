@@ -20,6 +20,7 @@ body {
   font-size: 25px;
   color: #339CFF;
   background-color: #FFD133;
+  margin-top: 20px;
 }
 
 #movie-A {
@@ -88,6 +89,7 @@ ul {
   color: white;
   background-color: #339CFF;
   width: 300px;
+  margin-left: 200px;
 }
 
 .parameterMenu {
@@ -97,6 +99,7 @@ ul {
   color: white;
   background-color: #339CFF;
   width: 300px;
+  margin-right: 200px;
 }
 
 #highscore-button {
