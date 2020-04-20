@@ -1,3 +1,4 @@
+
 h1 {
   text-align: center;
   font-size: 40px;
@@ -7,12 +8,9 @@ h1 {
 }
 
 body {
-  padding: 0;
-  margin: 0;
   font-family: Georgia, "Times New Roman", Times, serif;
   text-align: center;
   font-size: 18px;
-  line-height: 150%;
   color: #333;
 }
 
@@ -25,7 +23,7 @@ body {
 }
 
 #movie-A {
-  display: inline-block;
+  display: inline-block; 
   outline: 1px solid #ff4633;
   height: 425px;
   width: 350px;
@@ -44,7 +42,7 @@ body {
 }
 
 #movie-B {
-  display: inline-block;
+  display: inline-block; 
   outline: 1px solid #FF4633;
   height: 425px;
   width: 350px;
@@ -60,7 +58,6 @@ body {
   display: inline-block;
   font-family: Georgia, "Times New Roman", Times, serif;
   text-align: center;
-
 }
 
 ul {
@@ -68,45 +65,38 @@ ul {
 }
 
 #button-A {
-  display: inline-block;
   text-align: center;
   font-family: 'Press Start 2P';
   font-size: 25px;
   color: #339CFF;
   background-color: #FFD133;
-  margin-right: 750px;
 }
 
 #button-B {
-  display: inline-block;
   text-align: center;
   font-family: 'Press Start 2P';
   font-size: 25px;
   color: #339CFF;
   background-color: #FFD133;
-  margin-left: 750px;
 
 }
 
 .movieSetMenu {
-  display: inline-block;
   text-align: center;
   font-family: 'Press Start 2P';
   font-size: 25px;
   color: white;
   background-color: #339CFF;
-  margin-right: 750px;
+  width: 300px;
 }
 
 .parameterMenu {
-  display: inline-block;
   text-align: center;
   font-family: 'Press Start 2P';
   font-size: 25px;
   color: white;
   background-color: #339CFF;
-  margin-left: 750px;
-
+  width: 300px;
 }
 
 #highscore-button {
@@ -150,5 +140,14 @@ h3 {
   font-family: 'Press Start 2P';
   width: 300px;
   display: inline-block;
+}
+
+#go-home {
+  display: inline-block;
+  text-align: center;
+  font-family: 'Press Start 2P';
+  font-size: 25px;
+  color: #339CFF;
+  background-color: #FFD133;
 }
 
