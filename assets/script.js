@@ -95,6 +95,8 @@ function startGame() {
     //This deletes the start button once it has been pressed
     $("#start-button").remove();
 
+    $("#game-container").attr("style", "display: inline")
+
     //TODO: Code for changing the screen. Get the approach Jennel is using
 
     selectMovies();
@@ -269,6 +271,8 @@ function checkForEnd() {
 
 //This function ends the game: The parameter determines if they got a wrong answer (false), or completed all pairs (true)
 function endGame(victory) {
+    $("#game-container").attr("style", "display: hidden")
+    $("#endPage").attr("style", "display: inline")
     "give feedback that yells GAME OVER"
     //Add the final score to the highscore list
     addHighScore();
@@ -338,6 +342,7 @@ var movingStartMenu = function () {
     startSection.attr("style", "position:absolute")
     startSection.animate({ left: "-=100px" }, "fast");
     startSection.animate({ top: "-=100px" }, "fast");
+    startSection.animate({ top: "+=275px" }, "fast");
     var rando;
     randomPick = function () {
         rando = Math.floor((Math.random() * 4) + 1);
