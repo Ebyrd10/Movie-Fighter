@@ -6,11 +6,16 @@ var APInyt = "OnEXdchBuVPylzn2CiDtaSQLK1ih5pMU";
 //posterRef: SRC code for the film's poster
 function GetMovieData(name)
 {
+    name = name.toLowerCase();
+    name = name.replace("_"," ");
+    name = name.replace(" ","+");
+
     $.ajax({
         url: "http://www.omdbapi.com/?apikey=" + APIkey + "&t=" + name,
         method: "GET"
     }).then(function(data)
     {
+        console.log("this is the data:");
         console.log(data);
         var movieObject ={
             title: data.Title,
@@ -40,6 +45,7 @@ function GetMovieData(name)
             movieObject.review = reviewOutput;
         }
 
+        console.log("This is the movieObject");
         console.log(movieObject);
         return(movieObject);
     });
@@ -50,6 +56,7 @@ function GetMovieData(name)
 function GetReview(name)
 {
     name = name.toLowerCase();
+    name = name.replace("_"," ");
     name = name.replace(" ","+");
 
     $.ajax({
