@@ -207,35 +207,42 @@ var winOrLose = function () {
 
 //This function sets currentMovieA and currentMovieB to two new valid choices from the array
 function selectMovies() {
-    var validPair = false;
-    while (!validPair) {
+    console.log('select movies')
+    // var validPair = false;
+    // while (!validPair) {
         //Gets two movie names at random from the currentMovieArray
         var movieAIndex = Math.floor(Math.random() * currentMovieArray.length);
         currentMovieA = currentMovieArray[movieAIndex];
         var movieBIndex = Math.floor(Math.random() * currentMovieArray.length);
         currentMovieB = currentMovieArray[movieBIndex];
-
-        // //Populates the current movies with their API data, transforming just a string into an object with different properties
-        currentMovieA = GetMovieData(currentMovieA); 
-        // currentMovieB = GetMovieData(currentMovieB);
         
+        // //Populates the current movies with their API data, transforming just a string into an object with different properties
+        var promiseA = GetMovieData(currentMovieA) //a promise {ajax} function that returns a movie object
+        var promiseB = GetMovieData(currentMovieB) //same function as before, but a different name
+        Promise.all([promiseA, promiseB]).then(function(PromiseVortexArray) { //Wairs for both promises to complete before returning an array of return values
+            console.log(PromiseVortexArray)
+            currentMovieAObj = PromiseVortexArray[0]; //assigns the first return value to an object
+            currentMovieBObj = PromiseVortexArray[1]; //assigns the second return value to a different object
+            // if (currentMovieAObj === currentMovieBObj || checkRepeats()) {
+            //     validPair = false;
+            //     if (checkForEnd()) {
+            //         endGame(true);
+            //         return;
+            //     }
+            // }
+            // else {
+            //     validPair = true;
+            // }
+            console.log("Movie A: ")
+            console.log(currentMovieAObj)
+            console.log("Movie B: ")
+            console.log(currentMovieBObj)
+        })
 
 
-        if (currentMovieA === currentMovieB || checkRepeats()) {
-            validPair = false;
-            if (checkForEnd()) {
-                endGame(true);
-                return;
-            }
-        }
-        else {
-            validPair = true;
-        }
-    }
-    console.log("Movie A: ")
-    console.log(currentMovieA)
-    console.log("Movie B: ")
-    console.log(currentMovieB)
+    // }  
+
+    
 }
 
 //This function sets the HTML elements to display summaries and images for the movies
@@ -381,7 +388,7 @@ var movingStartMenu = function () {
 };//end of movingStartMenu
 movingStartMenu();
 
-$("#go-home").on("click", function (){
+$("#go-home").on("click", function refreshPage(){
     window.location.reload();
 } ); 
 
