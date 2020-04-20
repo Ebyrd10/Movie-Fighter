@@ -17,7 +17,6 @@
 //     posterRef: ""
 // };
 
-
 // the winningCreteria must match one of the properites of the currentMovie objects
 var winningCreteria;
 
@@ -138,13 +137,14 @@ function checkRepeats() {
 
 // A function that adds the current score as a high score
 var addHighScore = function () {
+    currentNameValue = $("#highscore-form").val();
     var newScore = {
         name: "",
-        playerscore: score
+        playerScore: score
     };
     //do not allow scores of 0 to be entered into the highscore list, instead alert out that they lost
-    if (playerscore > 0) {
-        // newScore.name = prompt("Please enter your name"); //cant use alerts or prompts
+    if (playerScore > 0) {
+        newScore.name = currentNameValue;
         //if there is no name, set the name to anonymous
         if ((newScore.name = "") || !newScore.name) {
             highScoreList.push(newScore)
@@ -192,9 +192,12 @@ var winOrLose = function () {
 
     if ((userChoice === winner) || (isDraw)) {
         score++;
+        //Stores the past movies to avoid repeats
         storepastMovies();
         //Pick 2 new movies
         selectMovies();
+        //Render the new movies onto the screen after a brief delay
+        setTimeout(displayMovies(), 250)
     }
     else {
         endGame(false); //Player loses the game for an incorrect answer
@@ -204,35 +207,42 @@ var winOrLose = function () {
 
 //This function sets currentMovieA and currentMovieB to two new valid choices from the array
 function selectMovies() {
-    var validPair = false;
-    while (!validPair) {
+    console.log('select movies')
+    // var validPair = false;
+    // while (!validPair) {
         //Gets two movie names at random from the currentMovieArray
         var movieAIndex = Math.floor(Math.random() * currentMovieArray.length);
         currentMovieA = currentMovieArray[movieAIndex];
         var movieBIndex = Math.floor(Math.random() * currentMovieArray.length);
         currentMovieB = currentMovieArray[movieBIndex];
-
-        // //Populates the current movies with their API data, transforming just a string into an object with different properties
-        currentMovieA = GetMovieData(currentMovieA); 
-        // currentMovieB = GetMovieData(currentMovieB);
         
+        // //Populates the current movies with their API data, transforming just a string into an object with different properties
+        var promiseA = GetMovieData(currentMovieA) //a promise {ajax} function that returns a movie object
+        var promiseB = GetMovieData(currentMovieB) //same function as before, but a different name
+        Promise.all([promiseA, promiseB]).then(function(PromiseVortexArray) { //Wairs for both promises to complete before returning an array of return values
+            console.log(PromiseVortexArray)
+            currentMovieAObj = PromiseVortexArray[0]; //assigns the first return value to an object
+            currentMovieBObj = PromiseVortexArray[1]; //assigns the second return value to a different object
+            // if (currentMovieAObj === currentMovieBObj || checkRepeats()) {
+            //     validPair = false;
+            //     if (checkForEnd()) {
+            //         endGame(true);
+            //         return;
+            //     }
+            // }
+            // else {
+            //     validPair = true;
+            // }
+            console.log("Movie A: ")
+            console.log(currentMovieAObj)
+            console.log("Movie B: ")
+            console.log(currentMovieBObj)
+        })
 
 
-        if (currentMovieA === currentMovieB || checkRepeats()) {
-            validPair = false;
-            if (checkForEnd()) {
-                endGame(true);
-                return;
-            }
-        }
-        else {
-            validPair = true;
-        }
-    }
-    console.log("Movie A: ")
-    console.log(currentMovieA)
-    console.log("Movie B: ")
-    console.log(currentMovieB)
+    // }  
+
+    
 }
 
 //This function sets the HTML elements to display summaries and images for the movies
@@ -307,13 +317,13 @@ displayHighScores = function () {
     //This deals with the creation of the actual highscore display section
     displayHighScoresEl = $("<div>");
     displayHighScoresEl.attr("id", "DisplayHighScores")
-    $("#highscore-button").append(displayHighScoresEl)
+    $("#highscore-form").append(displayHighScoresEl)
 
     //This deal with the creation of the list
     //loops through the HighScores array and create a new listitem for every entry
     for (i = 0; i < highScoreList.length; i++) {
         var listitem = $("<li>");
-        listitem.textContent = highScoreList[i].name + " : " + highScoreList[i].score;
+        listitem.text(highScoreList[i].name + " : " + highScoreList[i].playerScore + " points");
         $("#DisplayHighScores").append(listitem);
     }
 };
@@ -331,7 +341,6 @@ $(".movieImage").on("click", function () {
     else {
         userChoice = currentMovieB;
     }
-    determineWinner();
     winOrLose();
 });
 
@@ -378,3 +387,23 @@ var movingStartMenu = function () {
     }
 };//end of movingStartMenu
 movingStartMenu();
+
+$("#go-home").on("click", function refreshPage(){
+    window.location.reload();
+} ); 
+
+//Below is for testing
+highScoreList = [
+    {
+        name: "Ethan",
+        playerScore: 91
+    },
+    {
+        name: "Jane",
+        playerScore: 3
+    },
+    {
+        name: "Mozambique",
+        playerScore: 15
+    }
+]
