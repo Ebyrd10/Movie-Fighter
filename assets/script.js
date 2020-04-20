@@ -309,7 +309,7 @@ displayHighScores = function () {
     //This deals with the creation of the actual highscore display section
     displayHighScoresEl = $("<div>");
     displayHighScoresEl.attr("id", "DisplayHighScores")
-    $("#endPage").append(displayHighScoresEl)
+    $("#highscore-form").append(displayHighScoresEl)
 
     //This deal with the creation of the list
     //loops through the HighScores array and create a new listitem for every entry

@@ -176,7 +176,13 @@ h3 {
   margin-top:20px;
   list-style: none;
   font-family: 'Press Start 2P';
-  font-size: 25px;
+  font-size: 15px;
 }
 
+#gameOver {
+  margin: 60px;
+}
 
+#go-home {
+  margin:50px;
+}
