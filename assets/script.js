@@ -381,7 +381,9 @@ var movingStartMenu = function () {
 };//end of movingStartMenu
 movingStartMenu();
 
-// $("#go-home").on("click", window.location.reload;
+$("#go-home").on("click", function (){
+    window.location.reload();
+} ); 
 
 //Below is for testing
 highScoreList = [
