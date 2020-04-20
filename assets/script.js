@@ -65,8 +65,8 @@ var init = function () {
     }
 
     //Loads the highscore list from local storage if it exists
-    if (localStorage.getItem("highScoreList") !== null) {
-        highScoreList = JSON.parse(localStorage.getItem("highScoreList"));
+    if (localStorage.getItem("movieFighterHighScoreList") !== null) {
+        highScoreList = JSON.parse(localStorage.getItem("movieFighterHighScoreList"));
     }
 
 };//End of initialzing function 
@@ -154,7 +154,7 @@ var addHighScore = function () {
 //A function to save our highscore list to local storage
 function saveToLocalStorage() {
     var highScoreListStr = JSON.stringify(highScoreList);
-    localStorage.setItem("storedHighScoreList", highScoreListStr);
+    localStorage.setItem("movieFighterHighScoreList", highScoreListStr);
 };
 
 //A variable to determine whether or not a special scenerio of ties/draws is encountered
