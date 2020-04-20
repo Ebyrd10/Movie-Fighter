@@ -278,7 +278,7 @@ displayHighScores = function () {
    clearHighScoresDisplay();
 
     //This deals with the creation of the actual highscore display section
-    displayHighScoresEl = $("<div");
+    displayHighScoresEl = $("<div>");
     displayHighScoresEl.attr("id", "DisplayHighScores")
     $("#highscore-button").append(displayHighScoresEl)
 
