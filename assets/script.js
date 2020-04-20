@@ -79,12 +79,15 @@ $(".startButton").on("click", startGame);
 function startGame() {
     //This sets the currentMovieArray to the player's choice
     var movieChoice = $(".movieSetMenu").val();
-    var movieChoiceObject = MovieNames.allMovieSets[movieChoice];
+    var movieChoiceObject = allMovieSets[movieChoice];
     currentMovieArray = movieChoiceObject.array;
 
     //This sets the parameter to the player's choice
     var paraChoice = $(".parameterMenu").val();
     winningCreteria = allParameters[paraChoice];
+
+    //This deletes the start button once it has been pressed
+    $(".startButton").remove();
 
     //TODO: Code for changing the screen. Get the approach Jennel is using
 
@@ -237,22 +240,26 @@ function endGame(victory) {
 
 }
 
+//A function that clear the main image/moive section if ever needed
+var clearInfo = function() {
+    $("#movie-images").html = "";
+    $("#movie-info").html = "";
+};
 
 //This function displays the current high scores list
 displayHighScores = function () {
     //This deals with the positioning of the list
     //Clears the movie cards to make way for a highscore list
-    $("#movieCardA").html = "";
-    $("#movieCardB").html = "";
+    clearInfo();
     //Clears the highscore list if it exists to make way for new highscores
-    if ($("#DisplayHighScores")) {
+    if ($("#DisplayHighScores")){
         $("#DisplayHighScores").textContent = "";
     };
 
     //This deals with the creation of the actual highscore display section
-    displayHighScoresDiv = $("<div");
-    displayHighScoresDiv.attr("id", "DisplayHighScores")
-    $("container").append(displayHighScoresDiv)
+    displayHighScoresEl = $("<div");
+    displayHighScoresEl.attr("id", "DisplayHighScores")
+    $("#highscore-button").append(displayHighScoresEl)
 
     //This deal with the creation of the list
     //loops through the HighScores array and create a new listitem for every entry
@@ -262,6 +269,9 @@ displayHighScores = function () {
         $("#DisplayHighScores").append(listitem);
     }
 };
+
+//If the highscores button is clicked then then it triggers the display Highscores function
+$("#highscore-button").on("click", displayHighScores());
 
 //This function sets the HTML elements to display summaries and images for the movies
 //TODO: HTML call
