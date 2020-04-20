@@ -50,18 +50,16 @@ body {
   width: 350px;
 }
 
-#info-A {
+#movie-summary-A {
   display: inline-block;
   font-family: Georgia, "Times New Roman", Times, serif;
   text-align: center;
-  margin-left: 750px;
 }
 
-#info-B {
+#movie-summary-B {
   display: inline-block;
   font-family: Georgia, "Times New Roman", Times, serif;
   text-align: center;
-  margin-right: 650px;
 
 }
 
