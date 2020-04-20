@@ -17,168 +17,171 @@
   <!--PAGE HEADER-->
   <section id="header">
 
-  <div class="uk-grid">
-    <div class="uk-width-1-1">
-    <h1>MOVIE FIGHTER</h1>
-  </div>
+    <div class="uk-grid">
+      <div class="uk-width-1-1">
+        <h1>MOVIE FIGHTER</h1>
+      </div>
   </section>
 
   <!--Div for the start screen-->
   <div class="startScreenContainer">
 
-  
+
     <!--BODY CONTAINER-->
     <section id="game-rules">
-  
+
       <div id="start-container" class="container">
-          <!-- <p>DESCRIBE GAME OBJECTIVE</p> Empty for now --> 
-        </div>
+        <!-- <p>DESCRIBE GAME OBJECTIVE</p> Empty for now -->
+      </div>
     </section>
-  
+
     <!--DROPDOWN BUTTON-->
     <section id="dropdown-buttons">
-  
+
       <div class="uk-grid">
-        <div class="uk-width-1-3">
-          <div class="movieSetMenu">
+        <div class="uk-width-1-2">
+          <div class="movieSetContainer">
             <label for="movieSet">Movie Set</label>
-  
-            <select id="movieSetMenu">
-            </select>
+
+            <select id="movieSetMenu"></select>
           </div>
         </div>
-  
-    <!--HIGHSCORE FORM-->
-        <div class="uk-width-1-3">
+
+        <!--DROPDOWN BUTTON-->
+        <div class="uk-width-1-2">
+          <div class="parameterMenuContainer">
+            <label for="parameter">Parameters</label>
+
+            <select id="parameterMenu"></select>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!--HIGHSCORE FORM-->
+      <div class="row">
+        <div class="">
           <div id="highscore-form">
-            <form>
-              <input class="uk-input uk-form-blank uk-form-width-small" type="text" placeholder="Enter Name">
+            <form id="highscore-form">
+              <input class="uk-input uk-form-blank uk-form-width-medium" type="text" placeholder="   Enter Name">
             </form>
           </div>
         </div>
-  
-    <!--DROPDOWN BUTTON-->
-        <div class="uk-width-1-3">
-          <div class="parameterMenuContainer">
-            <label for="parameter">Parameter</label>
-  
-            <select id="parameterMenu">
-            </select>
-          </div>
-        </div>
       </div>
+
     </section>
-  
+
     <!--START BUTTON-->
     <section id="start">
-  
-      <div class="uk-grid">
-        <div class="uk-width-1-1">
-        <button id="start-button" class="uk-button uk-button-default uk-button-large">START</button>
-      </div>
-    </div>
-    </section>
-  
 
-  
-<!-------------------------------------------------------------------------------------------------------------------->  
-
-
-<div id="game-container" class="container">
-  <section id="movie-images">
-      <!--MOVIE IMAGES GO HERE-->
       <div class="row">
-        <div id="movie-A" class="col-5">
-          <div class="uk-card uk-card-body">
-            <img id="movAImg" src="xxxxxx ">
+        <div class="col-12">
+          <button id="start-button" class="uk-button uk-button-default uk-button-large">START</button>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-------------------------------------------------------------------------------------------------------------------->
+
+
+    <div id="game-container" class="container">
+      <section id="movie-images">
+
+        <!--MOVIE IMAGES GO HERE-->
+        <div class="row">
+          <div id="movie-A" class="col-5">
+            <div class="uk-card uk-card-body">
+              <img id="movAImg" src="xxxxxx ">
+            </div>
+          </div>
+
+          <div id="vs" class="col-2">
+            <div class="uk-card uk-card-body">
+              <p>VS.</p>
+            </div>
+          </div>
+
+
+          <div id="movie-B" class="col-5">
+            <div class="uk-card uk-card-body">
+              <img id="movBImg" src="xxxxxx">
+            </div>
           </div>
         </div>
 
-        <div id="vs" class="col-2">
-          <div class="uk-card uk-card-body">
-            <p>VS.</p>
+      </section>
+      <!--MOVIE INFO-->
+      <section id="movie-info">
+
+        <!--MOVIE SUMMARY GOES HERE-->
+        <div class="row">
+          <div id="info-A" class="col-6">
+            <div id="movie-summary-A"></div>
+          </div>
+
+          <!--MOVIE SUMMARY GOES HERE-->
+          <div id="info-B" class="col-6">
+            <div id="movie-summary-B"></div>
           </div>
         </div>
 
+      </section>
+       
+      <!--USER CHOICE-->
+      <section id="movie-buttons">
 
-        <div id="movie-B" class="col-5">
-          <div class="uk-card uk-card-body">
-            <img id="movBImg" src="xxxxxx">
+        <!--USER BUTTON A-->
+        <div class="uk-grid">
+          <div id="choice-A" class="uk-width-1-2">
+            <button id="button-A" class="uk-button uk-button-default uk-button-large">MOVIE A</button>
+          </div>
+
+          <!--USER BUTTON B-->
+          <div id="choice-B" class="uk-width-1-2">
+            <button id="button-B" class="uk-button uk-button-default uk-button-large">MOVIE B</button>
           </div>
         </div>
-      </div>
+      </section>
+    </div>
+    <!------------------------------------------------------------------------------------------------------------------->
 
-  </section>
-  <!--MOVIE INFO-->
-  <section id="movie-info">
+    <!--GAME OVER CONTAINTER !!!!!!-->
+    <section id="endPage">
 
-    <!--MOVIE SUMMARY GOES HERE-->
-    <div class="row">
-      <div id="info-A" class="col-6">
-        <div id="movie-summary-A">
+      <div id="end-container" class="container">
+        <div class="row">
 
+          <!--GAME OVER HEADING-->
+          <h2>GAME OVER!!!</h2>
+        </div>
+
+        <!--HIGHSCORES-->
+        <div class="row">
+          <h3>HIGHSCORES</h3>
+        </div>
+
+        <!--HIGHSCORE FORM GOES HERE-->
+        <div class="row">
+          <div id="highscore-form"></div>
+        </div>
+
+
+        <!--GO HOME BUTTON-->
+        <div class="row">
+          <button id="go-home" class="uk-button uk-button-default uk-button-large">GO HOME</button>
         </div>
       </div>
-
-      <!--MOVIE SUMMARY GOES HERE-->
-      <div id="info-B" class="col-6">
-        <div id="movie-summary-B">
-
-        </div>
-      </div>
-    </div>
-  </section>
-   
-  <!--USER CHOICE-->
-  <section id="movie-buttons">
-
-    <!--USER BUTTON A-->
-    <div class="uk-grid">
-      <div id="choice-A" class="uk-width-1-2">
-        <button id="button-A" class="uk-button uk-button-default uk-button-large">MOVIE A</button>
-      </div>
-
-    <!--USER BUTTON B-->
-      <div id="choice-B" class="uk-width-1-2">
-        <button id="button-B" class="uk-button uk-button-default uk-button-large">MOVIE B</button>
-      </div>
-    </div>
-  </section>
-</div>
-<!------------------------------------------------------------------------------------------------------------------->
-
-<!--GAME OVER CONTAINTER !!!!!!-->
-<section id="endPage">
-
-  <div id="end-container" class="container">
-    <div class="row">
-
-<!--GAME OVER HEADING-->
-      <h2>GAME OVER!!!</h2>
-    </div>
-
-<!--HIGHSCORES-->
-    <div class="row">
-      <h3>HIGHSCORES</h3>
-    </div>
-
-<!--HIGHSCORE FORM GOES HERE-->
-    <div class="row">
-      <div id="highscore-form"></div>
-    </div>
+    </section>
 
 
-<!--GO HOME BUTTON-->
-    <div class="row">
-      <button id="go-home" class="uk-button uk-button-default uk-button-large">GO HOME</button>
-    </div>
-  </div>
-</section>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="assets/apiPull.js"></script>
-<script type="text/javascript" src="assets/MovieNames.js"></script>
-<script type="text/javascript" src="assets/script.js"></script>
+    <!--SCRIPT LINKS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/apiPull.js"></script>
+    <script type="text/javascript" src="assets/MovieNames.js"></script>
+    <script type="text/javascript" src="assets/script.js"></script>
 
 </body>
 
