@@ -94,9 +94,8 @@ function startGame() {
     //This deletes the start button once it has been pressed
     $("#start-button").remove();
 
-    $("#game-container").attr("style", "display: inline")
-
-    //TODO: Code for changing the screen. Get the approach Jennel is using
+    $("#startScreenContainer").attr("style", "display: none");
+    $("#game-container").attr("style", "display: inline");
 
     selectMovies();
     displayMovies();
@@ -289,7 +288,8 @@ function endGame(victory) {
     //Save the highscore list to local storage
     saveToLocalStorage();
     //Display the Highscores onto the page
-    "go to the highscore Screen"
+    $("#game-container").attr("style","display: none");
+    $("#end-container").attr("style","display: in-line");
 
 }
 
