@@ -151,3 +151,20 @@ h3 {
   background-color: #FFD133;
 }
 
+#header {
+  margin-bottom: 50px;
+  height: 40px;
+  padding-bottom: 20px;
+}
+
+#game-container{
+  display: none;
+}
+
+#endPage{
+  display: none;
+}
+
+#movie-buttons{
+  margin-top: -40px;
+}
