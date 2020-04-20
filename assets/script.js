@@ -65,8 +65,8 @@ var init = function () {
     }
 
     //Loads the highscore list from local storage if it exists
-    if (localStorage.getItem("highScoreList") !== null) {
-        highScoreList = JSON.parse(localStorage.getItem("highScoreList"));
+    if (localStorage.getItem("movieFighterHighScoreList") !== null) {
+        highScoreList = JSON.parse(localStorage.getItem("movieFighterHighScoreList"));
     }
 
 };//End of initialzing function 
@@ -94,9 +94,8 @@ function startGame() {
     //This deletes the start button once it has been pressed
     $("#start-button").remove();
 
-    $("#game-container").attr("style", "display: inline")
-
-    //TODO: Code for changing the screen. Get the approach Jennel is using
+    $("#startScreenContainer").attr("style", "display: none");
+    $("#game-container").attr("style", "display: inline");
 
     selectMovies();
     displayMovies();
@@ -154,7 +153,7 @@ var addHighScore = function () {
 //A function to save our highscore list to local storage
 function saveToLocalStorage() {
     var highScoreListStr = JSON.stringify(highScoreList);
-    localStorage.setItem("storedHighScoreList", highScoreListStr);
+    localStorage.setItem("movieFighterHighScoreList", highScoreListStr);
 };
 
 //A variable to determine whether or not a special scenerio of ties/draws is encountered
@@ -289,7 +288,8 @@ function endGame(victory) {
     //Save the highscore list to local storage
     saveToLocalStorage();
     //Display the Highscores onto the page
-    "go to the highscore Screen"
+    $("#game-container").attr("style","display: none");
+    $("#end-container").attr("style","display: in-line");
 
 }
 
