@@ -17,7 +17,6 @@
 //     posterRef: ""
 // };
 
-
 // the winningCreteria must match one of the properites of the currentMovie objects
 var winningCreteria;
 
@@ -140,10 +139,10 @@ function checkRepeats() {
 var addHighScore = function () {
     var newScore = {
         name: "",
-        playerscore: score
+        playerScore: score
     };
     //do not allow scores of 0 to be entered into the highscore list, instead alert out that they lost
-    if (playerscore > 0) {
+    if (playerScore > 0) {
         // newScore.name = prompt("Please enter your name"); //cant use alerts or prompts
         //if there is no name, set the name to anonymous
         if ((newScore.name = "") || !newScore.name) {
@@ -192,9 +191,12 @@ var winOrLose = function () {
 
     if ((userChoice === winner) || (isDraw)) {
         score++;
+        //Stores the past movies to avoid repeats
         storepastMovies();
         //Pick 2 new movies
         selectMovies();
+        //Render the new movies onto the screen after a brief delay
+        setTimeout(displayMovies(), 250)
     }
     else {
         endGame(false); //Player loses the game for an incorrect answer
@@ -307,13 +309,13 @@ displayHighScores = function () {
     //This deals with the creation of the actual highscore display section
     displayHighScoresEl = $("<div>");
     displayHighScoresEl.attr("id", "DisplayHighScores")
-    $("#highscore-button").append(displayHighScoresEl)
+    $("#endPage").append(displayHighScoresEl)
 
     //This deal with the creation of the list
     //loops through the HighScores array and create a new listitem for every entry
     for (i = 0; i < highScoreList.length; i++) {
         var listitem = $("<li>");
-        listitem.textContent = highScoreList[i].name + " : " + highScoreList[i].score;
+        listitem.text(highScoreList[i].name + " : " + highScoreList[i].playerScore + " points");
         $("#DisplayHighScores").append(listitem);
     }
 };
@@ -331,7 +333,6 @@ $(".movieImage").on("click", function () {
     else {
         userChoice = currentMovieB;
     }
-    determineWinner();
     winOrLose();
 });
 
@@ -378,3 +379,22 @@ var movingStartMenu = function () {
     }
 };//end of movingStartMenu
 movingStartMenu();
+
+// $("#go-home").on("click", window.location.reload;
+
+//Below is for testing
+highScoreList = [
+    {
+        name: "Ethan",
+        playerScore: 91
+    },
+    {
+        name: "Jane",
+        playerScore: 3
+    },
+    {
+        name: "Mozambique",
+        playerScore: 15
+    }
+]
+displayHighScores();
