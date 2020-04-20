@@ -48,7 +48,7 @@ var highScoreList = [];
 //Inital behavior
 var init = function () {
     //Creates the movie menu
-    var movieMenu = $("#movieSetMenu"); //TODO: Make this sync up with the HTML
+    var movieMenu = $("#movieSetMenu");
     for (var i = 0; i < allMovieSets.length; i++) {
         var newOption = $("<option>");
         newOption.val(i);
@@ -57,7 +57,7 @@ var init = function () {
     }
 
     //Creates an option selection for each parameter
-    var paraMenu = $("#parameterMenu"); //TODO: Make this sync up with the HTML
+    var paraMenu = $("#parameterMenu");
     for (var i = 0; i < allParameters.length; i++) {
         var newOption = $("<option>");
         newOption.val(i);
