@@ -1,5 +1,23 @@
 // Two variables to hold the movieObject data from the API functions
 //These are dummy variables to help coding things without data
+
+
+saveHighScore = e => {
+  console.log("clicked the save button!");
+  e.preventDefault();
+
+  var score = {
+    score: Math.floor(Math.random() * 100),
+    name: username.value
+  };
+  highScores.push(score);
+  highScores.sort((a, b) => b.score - a.score);
+  highScores.splice(5);
+
+  localStorage.setItem("highScores", JSON.stringify(highScores));
+  window.location.assign("/");
+};
+
 var currentMovieA = {
     title: "Ethan's Story",
     rating: "",
