@@ -164,10 +164,19 @@ h3 {
   display: none;
 }
 
-#endPage{
+/* #endPage{
   display: none;
-}
+} */
 
 #movie-buttons{
   margin-top: -40px;
 }
+
+#DisplayHighScores li {
+  margin-top:20px;
+  list-style: none;
+  font-family: 'Press Start 2P';
+  font-size: 25px;
+}
+
+
