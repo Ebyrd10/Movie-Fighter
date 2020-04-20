@@ -75,19 +75,25 @@ var init = function () {
 init();
 
 //This function begins the game when the player pushes the start button TODO: HTML call
-$(".startButton").on("click", startGame);
+$("#start-button").on("click", startGame);
 function startGame() {
     //This sets the currentMovieArray to the player's choice
     var movieChoice = $(".movieSetMenu").val();
     var movieChoiceObject = allMovieSets[movieChoice];
-    currentMovieArray = movieChoiceObject.array;
+    currentMovieArray = movieChoiceObject;
+    if (!currentMovieArray) {
+        currentMovieArray = movieNames
+        console.log("set movie array to default movieNames array in MovieNames.js")
+    };
+    console.log("Current move array is: ")
+    console.log(currentMovieArray)
 
     //This sets the parameter to the player's choice
     var paraChoice = $(".parameterMenu").val();
     winningCreteria = allParameters[paraChoice];
 
     //This deletes the start button once it has been pressed
-    $(".startButton").remove();
+    $("#start-button").remove();
 
     //TODO: Code for changing the screen. Get the approach Jennel is using
 
@@ -200,9 +206,10 @@ function selectMovies() {
         var movieBIndex = Math.floor(Math.random() * currentMovieArray.length);
         currentMovieB = currentMovieArray[movieBIndex];
 
-        //Populates the current movies with their API data, transforming just a string into an object with different properties
-        currentMovieA = GetMovieData(currentMovieA);  //May not be needed if william populated the movies somewhere else in the code
-        currentMovieB = GetMovieData(currentMovieB);
+        // //Populates the current movies with their API data, transforming just a string into an object with different properties
+        // currentMovieA = GetMovieData(currentMovieA);  //May not be needed if william populated the movies somewhere else in the code
+        // currentMovieB = GetMovieData(currentMovieB);
+
 
         if (currentMovieA === currentMovieB || checkRepeats()) {
             validPair = false;
@@ -215,14 +222,17 @@ function selectMovies() {
             validPair = true;
         }
     }
+    console.log("Movie A: ")
+    console.log(currentMovieA)
+    console.log("Movie B: ")
+    console.log(currentMovieB)
 }
 
 //This function sets the HTML elements to display summaries and images for the movies
 //TODO: HTML call
-function displayMovies()
-{
-    $(".movieATitle").text(currentMovieA.title);
-    $(".movieBTitle").text(currentMovieB.title);
+function displayMovies() {
+    $("#movie-A").text(currentMovieA.title);
+    $("#movie-B").text(currentMovieB.title);
 
     $(".movieAReview").text(currentMovieA.review);
     $(".movieBReview").text(currentMovieB.review);
@@ -230,8 +240,8 @@ function displayMovies()
 
     var movieAImage = $(".movieAImg");
     var movieBImage = $(".movieBImg");
-    movieAImage.attr("src",currentMovieA.posterRef);
-    movieBImage.attr("src",currentMovieB.posterRef);
+    movieAImage.attr("src", currentMovieA.posterRef);
+    movieBImage.attr("src", currentMovieB.posterRef);
 }
 
 //This function will return true if there are no remaining combinations
@@ -267,7 +277,7 @@ var clearHighScoresDisplay = function () {
     if ($("#DisplayHighScores")) {
         $("#DisplayHighScores").textContent = "";
     };
-}; 
+};
 
 //This function displays the current high scores list
 displayHighScores = function () {
@@ -275,7 +285,7 @@ displayHighScores = function () {
     //Clears the movie cards to make way for a highscore list
     clearInfo();
     //Clears the highscore list if it exists to make way for new highscores
-   clearHighScoresDisplay();
+    clearHighScoresDisplay();
 
     //This deals with the creation of the actual highscore display section
     displayHighScoresEl = $("<div>");
@@ -328,18 +338,16 @@ $(".movieImage").on("click", function () {
 
 // //Animates the start button to move every half second in a random direction
 var movingStartMenu = function () {
-    console.log("yello")
     var startSection = $("#start-button");
-    console.log(startSection)
     startSection.attr("style", "position:absolute")
     startSection.animate({ left: "-=100px" }, "fast");
+    startSection.animate({ top: "-=100px" }, "fast");
     var rando;
     randomPick = function () {
         rando = Math.floor((Math.random() * 4) + 1);
     }
     var moveStartTimer = setInterval(function () {
         randomPick();
-        console.log(rando)
         switch (rando) {
             case 1:
                 startSection.animate({ top: "-=20px" }, "fast");
@@ -364,7 +372,7 @@ var movingStartMenu = function () {
                 console.log("RandomPicker or swtich statement failed");
         }
     }, 250)//End of setInterval
-    if ($("#start-button") = null) {
+    if (!($("#start-button"))) {
         clearInterval(moveStartTimer); //Clears the timer if the start section on longer exists
     }
 };//end of movingStartMenu
