@@ -1,29 +1,29 @@
 // Two variables to hold the movieObject data from the API functions
 //These are dummy variables to help coding things without data
-var currentMovieA = {
-    title: "Ethan's Story",
-    rating: "",
-    runtime: "",
-    year: "2011",
-    boxOffice: "",
-    posterRef: ""
-};
-var currentMovieB = {
-    title: "Ethan's Story 2: The Retelling",
-    rating: "",
-    runtime: "",
-    year: "2019",
-    boxOffice: "",
-    posterRef: ""
-};
+// var currentMovieA = {
+//     title: "Ethan's Story",
+//     rating: "",
+//     runtime: "",
+//     year: "2011",
+//     boxOffice: "",
+//     posterRef: ""
+// };
+// var currentMovieB = {
+//     title: "Ethan's Story 2: The Retelling",
+//     rating: "",
+//     runtime: "",
+//     year: "2019",
+//     boxOffice: "",
+//     posterRef: ""
+// };
 
 
 // the winningCreteria must match one of the properites of the currentMovie objects
 var winningCreteria;
 
 //The two variables below are how they wil actaully look in the code at the end of the day
-// var currentMovieA;
-// var currentMovieB;
+var currentMovieA;
+var currentMovieB;
 
 
 //This variable is the movie array in use. It should be set equal to a pre-made array at the beginning of the game.
@@ -112,22 +112,26 @@ function storepastMovies() {
 
 //Returns true for a repeat, false for a new set
 function checkRepeats() {
-    repeatObj = {
-        movieA: currentMovieA.title,
-        movieB: currentMovieB.title
+//     if ((!currentMovieA) || (!currentMovieB)){
+//     console.log("one or more movies in not defined for check repeats function") 
+//     return;
+// }
+//     repeatObj = {
+//         movieA: currentMovieA.title,
+//         movieB: currentMovieB.title
 
-    };
-    repeatObjInverse = {
-        movieA: currentMovieB.title,
-        movieB: currentMovieA.title
-    };
-    //If the current movie, or a variation of the current movies placement is already in the pastMovies array, then checkRepeats is true
-    if ((pastMovies.includes(repeatObj)) || (pastMovies.includes(repeatObjInverse))) { //im not sure if this code is going to work
-        return true;
-    }
-    else {
-        return false;
-    }
+//     };
+//     repeatObjInverse = {
+//         movieA: currentMovieB.title,
+//         movieB: currentMovieA.title
+//     };
+//     //If the current movie, or a variation of the current movies placement is already in the pastMovies array, then checkRepeats is true
+//     if ((pastMovies.includes(repeatObj)) || (pastMovies.includes(repeatObjInverse))) { //im not sure if this code is going to work
+//         return true;
+//     }
+//     else {
+//         return false;
+//     }
 };
 
 // A function that adds the current score as a high score
@@ -207,8 +211,9 @@ function selectMovies() {
         currentMovieB = currentMovieArray[movieBIndex];
 
         // //Populates the current movies with their API data, transforming just a string into an object with different properties
-        // currentMovieA = GetMovieData(currentMovieA);  //May not be needed if william populated the movies somewhere else in the code
+        currentMovieA = GetMovieData(currentMovieA); 
         // currentMovieB = GetMovieData(currentMovieB);
+        
 
 
         if (currentMovieA === currentMovieB || checkRepeats()) {
@@ -232,13 +237,10 @@ function selectMovies() {
 //TODO: HTML call
 function displayMovies() {
     console.log("start of display movies function")
-    console.log(currentMovieA)
-    console.log(currentMovieA.title)
-    console.log(currentMovieA.posterRef)
+    if ((!currentMovieA.title) || (!currentMovieB.title)){
+        console.log("display movies returned early")
+        return;}
     $("#choice-A").text(currentMovieA.title);
-    console.log(currentMovieA)
-    console.log(currentMovieA.title)
-    console.log($("#button-A"))
     $("#button-B").text(currentMovieB.title);
 
     $(".movieAReview").text(currentMovieA.review);
