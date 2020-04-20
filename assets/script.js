@@ -137,13 +137,14 @@ function checkRepeats() {
 
 // A function that adds the current score as a high score
 var addHighScore = function () {
+    currentNameValue = $("#highscore-form").val();
     var newScore = {
         name: "",
         playerScore: score
     };
     //do not allow scores of 0 to be entered into the highscore list, instead alert out that they lost
     if (playerScore > 0) {
-        // newScore.name = prompt("Please enter your name"); //cant use alerts or prompts
+        newScore.name = currentNameValue;
         //if there is no name, set the name to anonymous
         if ((newScore.name = "") || !newScore.name) {
             highScoreList.push(newScore)
@@ -397,4 +398,3 @@ highScoreList = [
         playerScore: 15
     }
 ]
-displayHighScores();
