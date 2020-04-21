@@ -36,11 +36,11 @@ function GetMovieData(name)
             var movieID = data.imdbID;
             movieObject.posterRef = "http://img.omdbapi.com/?apikey=" + APIkey + "&i=" + movieID;
     
-            var reviewOutput = GetReview(name);
-            if(reviewOutput !== -1)
-            {
-                movieObject.review = reviewOutput;
-            }
+            // var reviewOutput = GetReview(name);
+            // if(reviewOutput !== -1)
+            // {
+            //     movieObject.review = reviewOutput;
+            // }
     
             console.log("This is the movieObject");
             console.log(movieObject);
@@ -54,6 +54,8 @@ function GetMovieData(name)
 //If it cannot find it, or NYT doesn't have a review summary, it returns -1
 function GetReview(name)
 {
+    return new Promise(function(resolve, reject) {
+
     name = name.toLowerCase();
     name = name.replace("_"," ");
     name = name.replace(" ","+");
@@ -82,8 +84,10 @@ function GetReview(name)
        }
        else
        {
+           console.log("This is the review")
            console.log(targetMovieReview.summary_short);
-           return targetMovieReview.summary_short;
+           resolve (targetMovieReview.summary_short);
        }
     });
+    })
 }

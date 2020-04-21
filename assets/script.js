@@ -23,6 +23,9 @@ var winningCreteria;
 //The two variables below are how they wil actaully look in the code at the end of the day
 var currentMovieA;
 var currentMovieB;
+var currentMovieAObj;
+var currentMovieBObj;
+var currentMovieAObj;
 
 
 //This variable is the movie array in use. It should be set equal to a pre-made array at the beginning of the game.
@@ -98,7 +101,7 @@ function startGame() {
     $("#game-container").attr("style", "display: inline");
 
     selectMovies();
-    displayMovies();
+    // displayMovies();
 }
 
 //This function pushes the current movies as an object into the past movies array
@@ -196,7 +199,7 @@ var winOrLose = function () {
         //Pick 2 new movies
         selectMovies();
         //Render the new movies onto the screen after a brief delay
-        setTimeout(displayMovies(), 250)
+        // setTimeout(displayMovies(), 250)
     }
     else {
         endGame(false); //Player loses the game for an incorrect answer
@@ -218,10 +221,14 @@ function selectMovies() {
         // //Populates the current movies with their API data, transforming just a string into an object with different properties
         var promiseA = GetMovieData(currentMovieA) //a promise {ajax} function that returns a movie object
         var promiseB = GetMovieData(currentMovieB) //same function as before, but a different name
-        Promise.all([promiseA, promiseB]).then(function(PromiseVortexArray) { //Waits for both promises to complete before returning an array of return values
+        var promiseAr = GetReview(currentMovieA)
+        var promiseBr = GetReview(currentMovieB)
+        Promise.all([promiseA, promiseB, promiseAr, promiseBr]).then(function(PromiseVortexArray) { //Waits for both promises to complete before returning an array of return values
             console.log(PromiseVortexArray)
             currentMovieAObj = PromiseVortexArray[0]; //assigns the first return value to an object
             currentMovieBObj = PromiseVortexArray[1]; //assigns the second return value to a different object
+            currentMovieAObj.review = PromiseVortexArray[2];
+            currentMovieBObj.review = PromiseVortexArray[3];
             // if (currentMovieAObj === currentMovieBObj || checkRepeats()) {
             //     validPair = false;
             //     if (checkForEnd()) {
@@ -236,6 +243,7 @@ function selectMovies() {
             console.log(currentMovieAObj)
             console.log("Movie B: ")
             console.log(currentMovieBObj)
+            displayMovies();
         })
 
 
@@ -248,22 +256,24 @@ function selectMovies() {
 //TODO: HTML call
 function displayMovies() {
     console.log("start of display movies function")
-    if ((!currentMovieA.title) || (!currentMovieB.title)){
+    console.log("AAAA")
+    console.log(currentMovieAObj)
+    if ((!currentMovieAObj.title) || (!currentMovieBObj.title)){
         console.log("display movies returned early")
         return;}
-    $("#choice-A").text(currentMovieA.title);
-    $("#button-B").text(currentMovieB.title);
+    $("#choice-A").text(currentMovieAObj.title);
+    $("#button-B").text(currentMovieBObj.title);
 
-    $(".movieAReview").text(currentMovieA.review);
-    $(".movieBReview").text(currentMovieB.review);
+    $(".movieAReview").text(currentMovieAObj.review);
+    $(".movieBReview").text(currentMovieBObj.review);
     //TODO: Code for pop up - if needed
 
     var movieAImage = $("#movAImg");
     var movieBImage = $("#movBImg");
-    movieAImage.attr("src", currentMovieA.posterRef);
-    movieBImage.attr("src", currentMovieB.posterRef);
-    movieAImage.attr("alt", currentMovieA.title);
-    movieBImage.attr("alt", currentMovieB.title);
+    movieAImage.attr("src", currentMovieAObj.posterRef);
+    movieBImage.attr("src", currentMovieBObj.posterRef);
+    movieAImage.attr("alt", currentMovieAObj.title);
+    movieBImage.attr("alt", currentMovieBObj.title);
     console.log("end of display movies function")
 }
 
@@ -406,4 +416,4 @@ highScoreList = [
         name: "Mozambique",
         playerScore: 15
     }
-]
+];
