@@ -119,42 +119,53 @@ function storepastMovies() {
     pastMovies.push(newEntry);
 };
 
+var repeatObj = {
+    movieA: "",
+    movieB: ""
+};
+var repeatObjInverse = {
+    movieA: "",
+    movieB: ""
+};
 //Returns true for a repeat, false for a new set
 function checkRepeats() {
-//     if ((!currentMovieA) || (!currentMovieB)){
-//     console.log("one or more movies in not defined for check repeats function") 
-//     return;
-// }
-//     repeatObj = {
-//         movieA: currentMovieA.title,
-//         movieB: currentMovieB.title
+    if ((!currentMovieAObj.title) || (!currentMovieBObj.title)){
+    console.log("one or more movies in not defined for check repeats function") 
+    return;
+}
+    else {
+    repeatObj.movieA = currentMovieAObj.title;
+    repeatObj.movieB =  currentMovieBObj.title;
 
-//     };
-//     repeatObjInverse = {
-//         movieA: currentMovieB.title,
-//         movieB: currentMovieA.title
-//     };
-//     //If the current movie, or a variation of the current movies placement is already in the pastMovies array, then checkRepeats is true
-//     if ((pastMovies.includes(repeatObj)) || (pastMovies.includes(repeatObjInverse))) { //im not sure if this code is going to work
-//         return true;
-//     }
-//     else {
-//         return false;
-//     }
+    };
+    console.log(repeatObj)
+    repeatObjInverse = {
+        movieA: currentMovieBObj.title,
+        movieB: currentMovieAObj.title
+    };
+    //If the current movie, or a variation of the current movies placement is already in the pastMovies array, then checkRepeats is true
+    if ((pastMovies.includes(repeatObj)) || (pastMovies.includes(repeatObjInverse))) {
+        return true;
+    }
+    else {
+        return false;
+    }
 };
 
 // A function that adds the current score as a high score
 var addHighScore = function () {
-    currentNameValue = $("#highscore-form").val();
+    currentNameValue = $("#highscore-form input").val();
     var newScore = {
         name: "",
         playerScore: score
     };
+    newScore.name = currentNameValue
     //do not allow scores of 0 to be entered into the highscore list, instead alert out that they lost
-    if (playerScore > 0) {
+    if (newScore.playerScore > 0) {
         newScore.name = currentNameValue;
         //if there is no name, set the name to anonymous
         if ((newScore.name = "") || !newScore.name) {
+            newScore.name = "Anonymous"
             highScoreList.push(newScore)
         };
     }
@@ -175,15 +186,20 @@ var winner;
 
 function determineWinner() {
     var winningCreteriaName = winningCreteria.name;
-    if (currentMovieA[winningCreteriaName] > currentMovieB[winningCreteriaName]) {
+    console.log(winningCreteria.name)
+    console.log (currentMovieAObj[winningCreteriaName])
+    console.log (currentMovieBObj[winningCreteriaName])
+    console.log (currentMovieAObj[winningCreteriaName])
+    console.log (currentMovieBObj[winningCreteriaName])
+    if (currentMovieAObj[winningCreteriaName] > currentMovieBObj[winningCreteriaName]) {
         console.log("log: movieA wins")
-        winner = currentMovieA;
+        winner = currentMovieAObj;
     }
-    else if (currentMovieA[winningCreteriaName] < currentMovieB[winningCreteriaName]) {
+    else if (currentMovieAObj[winningCreteriaName] < currentMovieBObj[winningCreteriaName]) {
         console.log("log: movieA losses")
-        winner = currentMovieB;
+        winner = currentMovieBObj;
     }
-    else if (currentMovieA[winningCreteriaName] === currentMovieB[winningCreteriaName]) {
+    else if (currentMovieAObj[winningCreteriaName] === currentMovieBObj[winningCreteriaName]) {
         console.log("log: movies are tied")
         isDraw = true;
     }
@@ -236,12 +252,16 @@ function selectMovies() {
             currentMovieBObj = PromiseVortexArray[1]; //assigns the second return value to a different object
             currentMovieAObj.review = PromiseVortexArray[2];
             currentMovieBObj.review = PromiseVortexArray[3];
-            // if (currentMovieAObj === currentMovieBObj || checkRepeats()) {
+            if ((currentMovieAObj === currentMovieBObj)) {
             //     validPair = false;
             //     if (checkForEnd()) {
             //         endGame(true);
-            //         return;
-            //     }
+                    selectMovies();
+                    return;
+                }
+            else if (checkRepeats()){
+                console.log("checked")
+            }
             // }
             // else {
             //     validPair = true;
@@ -266,6 +286,7 @@ function displayMovies() {
     console.log(currentMovieAObj)
     if ((!currentMovieAObj.title) || (!currentMovieBObj.title)){
         console.log("display movies returned early")
+        selectMovies();
         return;}
     $("#button-A").text(currentMovieAObj.title);
     $("#button-B").text(currentMovieBObj.title);
@@ -432,17 +453,17 @@ $("#go-home").on("click", function refreshPage(){
 } ); 
 
 //Below is for testing
-highScoreList = [
-    {
-        name: "Ethan",
-        playerScore: 91
-    },
-    {
-        name: "Jane",
-        playerScore: 3
-    },
-    {
-        name: "Mozambique",
-        playerScore: 15
-    }
-];
+// highScoreList = [
+//     {
+//         name: "Ethan",
+//         playerScore: 91
+//     },
+//     {
+//         name: "Jane",
+//         playerScore: 3
+//     },
+//     {
+//         name: "Mozambique",
+//         playerScore: 15
+//     }
+// ];
