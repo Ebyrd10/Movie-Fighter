@@ -10,7 +10,42 @@ var marvelMovies = [
     "The Incredible Hulk",
     "Iron Man 2",
     "Thor",
-]
+    "Avengers",
+    "Infinity War",
+    "Avengers: Endgame",
+    "Black Panther",
+    "Ant-Man",
+    "Guardians of the Galaxy"
+];
+
+var scifiMovies = [
+    "Hitchhiker's Guide to the Galaxy",
+    "2001",
+    "Alien",
+    "The Wrath of Khan",
+    "The Day the Earth Stood Still",
+    "Forbidden Planet",
+    "Arrival",
+    "Gravity",
+    "Independence Day",
+    "Flash Gordon",
+    "THX",
+    "Signs",
+    "Mission to Mars",
+    "Young Frankenstein"
+];
+
+var fantasyMovies = [
+    "Return of the King",
+    "Harry Potter and the Order of the Pheonix",
+    "The Princess Bride",
+    "Excaliber",
+    "Prince of Theives",
+    "Willow",
+    "The Dark Crystal",
+    "Shrek",
+    "Pirates of the Caribbean"
+];
 
 var allMovieSets = [
     basicSet = {
@@ -24,5 +59,13 @@ var allMovieSets = [
     marvelMoviesSet = {
         name: "MCU",
         array: marvelMovies
+    },
+    sciFiMoviesSet ={
+        name: "Science Fiction",
+        array: scifiMovies
+    },
+    fantastySet = {
+        name: "Fantasy Movies",
+        array: fantasyMovies
     }
 ];
