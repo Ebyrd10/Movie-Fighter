@@ -2,6 +2,10 @@ var allMovieSets = [
     basicSet = {
         name: "Basic Set",
         array: movieNames
+    },
+    scaryMoviesSet = {
+        name: "Scary",
+        array: scaryMovies
     }
 ];
 
@@ -13,3 +17,10 @@ var movieNames = ["Cats", "Mad_Max", "The_Matrix","Foodfight!","9","Madagascar",
 var scaryMovies=["Hush","Scream","Candyman","Get_out","Carrie","Bird_Box","Us","Psycho","The_Witch","it","28 Days Later","Night of the Living Dead"
 ,"EYES WITHOUT A FACE","The Cabin in the Woods "
 ];
+
+var marvelMovies = [
+    "Iron Man",
+    "The Incredible Hulk",
+    "Iron Man 2",
+    "Thor",
+]
