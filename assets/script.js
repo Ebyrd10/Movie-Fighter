@@ -87,12 +87,13 @@ function startGame() {
         currentMovieArray = movieNames
         console.log("set movie array to default movieNames array in MovieNames.js")
     };
+    currentMovieArray = movieNames;
     console.log("Current move array is: ")
     console.log(currentMovieArray)
 
     //This sets the parameter to the player's choice
     var paraChoice = $("#parameterMenu option:selected").val();
-    console.log("paraChoice: "+paraChoice);
+    console.log("paraChoice: " + paraChoice);
     winningCreteria = allParameters[paraChoice];
     //This promise waits for selectMovies to finish, or maybe it does nothing
     return new Promise(function(resolve, reject) {
@@ -262,12 +263,11 @@ function selectMovies() {
 //TODO: HTML call
 function displayMovies() {
     console.log("start of display movies function")
-    console.log("AAAA")
     console.log(currentMovieAObj)
     if ((!currentMovieAObj.title) || (!currentMovieBObj.title)){
         console.log("display movies returned early")
         return;}
-    $("#choice-A").text(currentMovieAObj.title);
+    $("#button-A").text(currentMovieAObj.title);
     $("#button-B").text(currentMovieBObj.title);
 
     $(".movieAReview").text(currentMovieAObj.review);
