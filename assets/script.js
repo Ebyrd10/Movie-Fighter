@@ -1,3 +1,5 @@
+
+
 //This variable handles if the current MovieA and Movie B have been used before
 var repeatingMovieTF = false;
 
@@ -244,7 +246,6 @@ function selectMovies() {
             checkRepeats();
             if (repeatingMovieTF === true) {
                 console.log("repeat found")
-                selectMovies();
             }
         }
         displayMovies();
