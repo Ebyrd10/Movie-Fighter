@@ -23,7 +23,6 @@ body {
 }
 
 #movie-A {
-  display: inline-block; 
   outline: 1px solid #ff4633;
   height: 425px;
   width: 300px;
@@ -37,12 +36,12 @@ body {
   color: #FFD133;
   background-color: #339CFF;
   width: 300px;
+  height: 100px;
   margin: 1em;
   
 }
 
 #movie-B {
-  display: inline-block; 
   outline: 1px solid #FF4633;
   height: 425px;
   width: 300px;
@@ -175,11 +174,13 @@ h3 {
   padding: 10px;
 }
 
+/*
 #game-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 10px;
   }
+*/
 
 #DisplayHighScores li {
   margin-top:20px;
