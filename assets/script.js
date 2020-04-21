@@ -93,15 +93,19 @@ function startGame() {
     //This sets the parameter to the player's choice
     var paraChoice = $(".parameterMenu").val();
     winningCreteria = allParameters[paraChoice];
-
+    //This promise waits for selectMovies to finish, or maybe it does nothing
+    return new Promise(function(resolve, reject) {
+    selectMovies();
     //This deletes the start button once it has been pressed
     $("#start-button").remove();
 
     $("#startScreenContainer").attr("style", "display: none");
     $("#game-container").attr("style", "display: inline");
 
-    selectMovies();
+    // selectMovies();
     // displayMovies();
+    resolve()
+    })
 }
 
 //This function pushes the current movies as an object into the past movies array
