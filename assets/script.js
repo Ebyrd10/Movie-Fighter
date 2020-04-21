@@ -244,6 +244,7 @@ function selectMovies() {
             checkRepeats();
             if (repeatingMovieTF === true) {
                 console.log("repeat found")
+                selectMovies();
             }
         }
         displayMovies();
