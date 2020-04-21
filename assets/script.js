@@ -226,10 +226,10 @@ function selectMovies() {
         currentMovieB = currentMovieArray[movieBIndex];
         
         // //Populates the current movies with their API data, transforming just a string into an object with different properties
-        var promiseA = GetMovieData(currentMovieA) //a promise {ajax} function that returns a movie object
-        var promiseB = GetMovieData(currentMovieB) //same function as before, but a different name
-        var promiseAr = GetReview(currentMovieA)
-        var promiseBr = GetReview(currentMovieB)
+        var promiseA = GetMovieData(currentMovieA); //a promise {ajax} function that returns a movie object
+        var promiseB = GetMovieData(currentMovieB); //same function as before, but a different name
+        var promiseAr = GetReview(currentMovieA);
+        var promiseBr = GetReview(currentMovieB);
         Promise.all([promiseA, promiseB, promiseAr, promiseBr]).then(function(PromiseVortexArray) { //Waits for both promises to complete before returning an array of return values
             console.log(PromiseVortexArray)
             currentMovieAObj = PromiseVortexArray[0]; //assigns the first return value to an object
