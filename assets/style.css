@@ -101,12 +101,11 @@ ul {
 }
 
 #highscore-form {
-  margin-bottom: 1em;
   display: inline-block;
   text-align: center;
   font-family: 'Press Start 2P';
   font-size: 10px;
-  
+  outline: 2px dotted #FF4633;
 }
 
 #movieSetMenu {
@@ -169,10 +168,12 @@ h3 {
   margin-top: -40px;
 }
 
+
 #start-container {
   margin: 0 auto;
   padding: 10px;
 }
+
 /*
 #game-container {
     max-width: 1200px;
@@ -180,6 +181,7 @@ h3 {
     padding: 10px;
   }
 */
+
 #DisplayHighScores li {
   margin-top:20px;
   list-style: none;
@@ -191,15 +193,6 @@ h3 {
   margin: 60px;
 }
 
-
 #go-home {
   margin:50px;
-}
-
-#highscore-over {
-  display: inline-block;
-  text-align: center;
-  font-family: 'Press Start 2P';
-  font-size: 10px;
-  margin-bottom: 10px;;
 }
