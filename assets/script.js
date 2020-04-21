@@ -23,6 +23,9 @@ var winningCreteria;
 //The two variables below are how they wil actaully look in the code at the end of the day
 var currentMovieA;
 var currentMovieB;
+var currentMovieAObj;
+var currentMovieBObj;
+var currentMovieAObj;
 
 
 //This variable is the movie array in use. It should be set equal to a pre-made array at the beginning of the game.
@@ -65,8 +68,8 @@ var init = function () {
     }
 
     //Loads the highscore list from local storage if it exists
-    if (localStorage.getItem("highScoreList") !== null) {
-        highScoreList = JSON.parse(localStorage.getItem("highScoreList"));
+    if (localStorage.getItem("movieFighterHighScoreList") !== null) {
+        highScoreList = JSON.parse(localStorage.getItem("movieFighterHighScoreList"));
     }
 
 };//End of initialzing function 
@@ -77,7 +80,7 @@ init();
 $("#start-button").on("click", startGame);
 function startGame() {
     //This sets the currentMovieArray to the player's choice
-    var movieChoice = $(".movieSetMenu").val();
+    var movieChoice = $("#movieSetMenu option:selected").val();
     var movieChoiceObject = allMovieSets[movieChoice];
     currentMovieArray = movieChoiceObject;
     if (!currentMovieArray) {
@@ -88,18 +91,22 @@ function startGame() {
     console.log(currentMovieArray)
 
     //This sets the parameter to the player's choice
-    var paraChoice = $(".parameterMenu").val();
+    var paraChoice = $("#parameterMenu option:selected").val();
+    console.log("paraChoice: "+paraChoice);
     winningCreteria = allParameters[paraChoice];
-
+    //This promise waits for selectMovies to finish, or maybe it does nothing
+    return new Promise(function(resolve, reject) {
+    selectMovies();
     //This deletes the start button once it has been pressed
     $("#start-button").remove();
 
-    $("#game-container").attr("style", "display: inline")
+    $("#startScreenContainer").attr("style", "display: none");
+    $("#game-container").attr("style", "display: inline");
 
-    //TODO: Code for changing the screen. Get the approach Jennel is using
-
-    selectMovies();
-    displayMovies();
+    // selectMovies();
+    // displayMovies();
+    resolve()
+    })
 }
 
 //This function pushes the current movies as an object into the past movies array
@@ -154,7 +161,7 @@ var addHighScore = function () {
 //A function to save our highscore list to local storage
 function saveToLocalStorage() {
     var highScoreListStr = JSON.stringify(highScoreList);
-    localStorage.setItem("storedHighScoreList", highScoreListStr);
+    localStorage.setItem("movieFighterHighScoreList", highScoreListStr);
 };
 
 //A variable to determine whether or not a special scenerio of ties/draws is encountered
@@ -197,7 +204,7 @@ var winOrLose = function () {
         //Pick 2 new movies
         selectMovies();
         //Render the new movies onto the screen after a brief delay
-        setTimeout(displayMovies(), 250)
+        // setTimeout(displayMovies(), 250)
     }
     else {
         endGame(false); //Player loses the game for an incorrect answer
@@ -207,57 +214,71 @@ var winOrLose = function () {
 
 //This function sets currentMovieA and currentMovieB to two new valid choices from the array
 function selectMovies() {
-    var validPair = false;
-    while (!validPair) {
+    console.log('select movies')
+    // var validPair = false;
+    // while (!validPair) {
         //Gets two movie names at random from the currentMovieArray
         var movieAIndex = Math.floor(Math.random() * currentMovieArray.length);
         currentMovieA = currentMovieArray[movieAIndex];
         var movieBIndex = Math.floor(Math.random() * currentMovieArray.length);
         currentMovieB = currentMovieArray[movieBIndex];
-
-        // //Populates the current movies with their API data, transforming just a string into an object with different properties
-        currentMovieA = GetMovieData(currentMovieA); 
-        // currentMovieB = GetMovieData(currentMovieB);
         
+        // //Populates the current movies with their API data, transforming just a string into an object with different properties
+        var promiseA = GetMovieData(currentMovieA) //a promise {ajax} function that returns a movie object
+        var promiseB = GetMovieData(currentMovieB) //same function as before, but a different name
+        var promiseAr = GetReview(currentMovieA)
+        var promiseBr = GetReview(currentMovieB)
+        Promise.all([promiseA, promiseB, promiseAr, promiseBr]).then(function(PromiseVortexArray) { //Waits for both promises to complete before returning an array of return values
+            console.log(PromiseVortexArray)
+            currentMovieAObj = PromiseVortexArray[0]; //assigns the first return value to an object
+            currentMovieBObj = PromiseVortexArray[1]; //assigns the second return value to a different object
+            currentMovieAObj.review = PromiseVortexArray[2];
+            currentMovieBObj.review = PromiseVortexArray[3];
+            // if (currentMovieAObj === currentMovieBObj || checkRepeats()) {
+            //     validPair = false;
+            //     if (checkForEnd()) {
+            //         endGame(true);
+            //         return;
+            //     }
+            // }
+            // else {
+            //     validPair = true;
+            // }
+            console.log("Movie A: ")
+            console.log(currentMovieAObj)
+            console.log("Movie B: ")
+            console.log(currentMovieBObj)
+            displayMovies();
+        })
 
 
-        if (currentMovieA === currentMovieB || checkRepeats()) {
-            validPair = false;
-            if (checkForEnd()) {
-                endGame(true);
-                return;
-            }
-        }
-        else {
-            validPair = true;
-        }
-    }
-    console.log("Movie A: ")
-    console.log(currentMovieA)
-    console.log("Movie B: ")
-    console.log(currentMovieB)
+    // }  
+
+    
 }
 
 //This function sets the HTML elements to display summaries and images for the movies
 //TODO: HTML call
 function displayMovies() {
     console.log("start of display movies function")
-    if ((!currentMovieA.title) || (!currentMovieB.title)){
+    console.log("AAAA")
+    console.log(currentMovieAObj)
+    if ((!currentMovieAObj.title) || (!currentMovieBObj.title)){
         console.log("display movies returned early")
         return;}
-    $("#choice-A").text(currentMovieA.title);
-    $("#button-B").text(currentMovieB.title);
+    $("#choice-A").text(currentMovieAObj.title);
+    $("#button-B").text(currentMovieBObj.title);
 
-    $(".movieAReview").text(currentMovieA.review);
-    $(".movieBReview").text(currentMovieB.review);
+    $(".movieAReview").text(currentMovieAObj.review);
+    $(".movieBReview").text(currentMovieBObj.review);
     //TODO: Code for pop up - if needed
 
     var movieAImage = $("#movAImg");
     var movieBImage = $("#movBImg");
-    movieAImage.attr("src", currentMovieA.posterRef);
-    movieBImage.attr("src", currentMovieB.posterRef);
-    movieAImage.attr("alt", currentMovieA.title);
-    movieBImage.attr("alt", currentMovieB.title);
+    movieAImage.attr("src", currentMovieAObj.posterRef);
+    movieBImage.attr("src", currentMovieBObj.posterRef);
+    movieAImage.attr("alt", currentMovieAObj.title);
+    movieBImage.attr("alt", currentMovieBObj.title);
     console.log("end of display movies function")
 }
 
@@ -282,7 +303,8 @@ function endGame(victory) {
     //Save the highscore list to local storage
     saveToLocalStorage();
     //Display the Highscores onto the page
-    "go to the highscore Screen"
+    $("#game-container").attr("style","display: none");
+    $("#end-container").attr("style","display: in-line");
 
 }
 
@@ -326,16 +348,37 @@ $("#highscore-button").on("click", displayHighScores());
 
 //On clicking an image, that image becomes  userChoice and it calls the winOrlose function to see if the userChoice was correct
 //TODO: HTML call to a tag on both the images
-$(".movieImage").on("click", function () {
-    var userChoiceLetter = $(this).val(); //pseudocode, not real code TODO: Get a reference to the object's value: A or B
-    if (userChoiceLetter === "A") {
-        userChoice = currentMovieA;
+$("#button-A").on("click", function () {
+    determinePlayerChoice(true);
+});
+
+$("#button-B").on("click", function ()
+{
+    determinePlayerChoice(false);
+});
+
+$("#movAImg").on("click",function()
+{
+    determinePlayerChoice(true);
+});
+
+$("#movBImg").on("click",function()
+{
+    determinePlayerChoice(true);
+});
+
+function determinePlayerChoice(choiceA)
+{
+    if(choiceA)
+    {
+        userChoice = currentMovieAObj;
     }
-    else {
-        userChoice = currentMovieB;
+    else
+    {
+        userChoice = currentMovieBObj;
     }
     winOrLose();
-});
+}
 
 
 // //Animates the start button to move every half second in a random direction
@@ -381,7 +424,7 @@ var movingStartMenu = function () {
 };//end of movingStartMenu
 movingStartMenu();
 
-$("#go-home").on("click", function (){
+$("#go-home").on("click", function refreshPage(){
     window.location.reload();
 } ); 
 
@@ -399,4 +442,4 @@ highScoreList = [
         name: "Mozambique",
         playerScore: 15
     }
-]
+];
