@@ -23,18 +23,27 @@ function GetMovieData(name)
                 posterRef: null,
                 review: null
             };
-    
+            
+            if (movieObject.runetime){
             movieObject.runtime = movieObject.runtime.replace("min","");
             movieObject.runtime = movieObject.runtime.trim();
-    
+            }
+            
+            if (movieObject.releaseYear){
             var releaseYear = movieObject.year;
             movieObject.year = releaseYear.slice(releaseYear.length-4,releaseYear.length);
+            }
     
+            if (movieObject.boxOffice){
             movieObject.boxOffice = movieObject.boxOffice.replace("$","");
             movieObject.boxOffice = movieObject.boxOffice.replace(/,/g,"");
-    
+            }
+
+
+            if (data.imdbID){
             var movieID = data.imdbID;
             movieObject.posterRef = "http://img.omdbapi.com/?apikey=" + APIkey + "&i=" + movieID;
+            }
     
             // var reviewOutput = GetReview(name);
             // if(reviewOutput !== -1)
@@ -50,42 +59,75 @@ function GetMovieData(name)
     
     }
     
-    //Takes in a movie name and returns a short summary of the NYT review of it. 
-    //If it cannot find it, or NYT doesn't have a review summary, it returns -1
+    // Takes in a movie name and returns a short summary of the NYT review of it. 
+    // If it cannot find it, or NYT doesn't have a review summary, it returns -1
+    // function GetReview(name)
+    // {
+    //     return new Promise(function(resolve, reject) {
+    
+    //     name = name.toLowerCase();
+    //     name = name.replace("_"," ");
+    //     name = name.replace(" ","+");
+    //     var targetName;
+    //     $.ajax({
+    //         url: "https://api.nytimes.com/svc/movies/v2/reviews/search.json?query="+ name + "&api-key=" + APInyt,
+    //         method: "GET"
+    //     }).then(function (data) {
+    //         console.log("this is the review data")
+    //         console.log(data)
+    //        var reviewArray = data.results;
+    //        var targetMovieReview;
+    //        for(var i = 0; i < reviewArray.length; i++)
+    //        {
+    //            targetName = reviewArray[i].display_title;
+    //            targetName = targetName.toLowerCase();
+    //            targetName = targetName.replace(" ","+");
+    //            targetName = name.replace("_"," ");
+    //            if(name === targetName)
+    //            {
+    //                targetMovieReview = reviewArray[i];
+    //            }
+    //        }
+    //        if(targetMovieReview === null || name.summary_short==="")
+    //        {
+    //            return -1;
+    //        }
+    //        else
+    //        {
+    //            console.log(name.summary_short)
+    //            resolve (name.summary_short);
+    //        }
+    //     });
+    //     })
+    // }
+
     function GetReview(name)
     {
         return new Promise(function(resolve, reject) {
-    
-        // name = name.toLowerCase();
-        // name = name.replace("_"," ");
-        // name = name.replace(" ","+");
-    
+
         $.ajax({
             url: "https://api.nytimes.com/svc/movies/v2/reviews/search.json?query="+ name + "&api-key=" + APInyt,
             method: "GET"
         }).then(function (data) {
+            console.log("this is the review data")
+            console.log(data)
+            var movieReview = "place holder review"
            var reviewArray = data.results;
-           var targetMovieReview;
-           for(var i = 0; i < reviewArray.length; i++)
-           {
-               var targetName = reviewArray[i].display_title;
-               targetName = targetName.toLowerCase();
-               targetName = targetName.replace(" ","+");
-               if(name === targetName)
-               {
-                   targetMovieReview = reviewArray[i];
+           x = Math.floor((Math.random() * reviewArray.length) + 0);
+           if (reviewArray[x]){
+               if (reviewArray[x].headline){
+                movieReview = reviewArray[x].headline;
+               }
+               else {
+                movieReview = name;
                }
            }
-           if(targetMovieReview === null || targetMovieReview.summary_short==="")
-           {
-               return -1;
+           else {
+            movieReview = name;
            }
-           else
-           {
-               resolve (targetMovieReview.summary_short);
-           }
+           console.log("this is the movie review/headline")
+               console.log(movieReview)
+               resolve (movieReview);
         });
         })
     }
-
-    
