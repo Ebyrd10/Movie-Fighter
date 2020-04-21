@@ -8,7 +8,7 @@ function GetMovieData(name)
 {
     return new Promise(function(resolve, reject) {
         $.ajax({
-            url: "http://www.omdbapi.com/?apikey=" + APIkey + "&t=" + name,
+            url: "https://www.omdbapi.com/?apikey=" + APIkey + "&t=" + name,
             method: "GET"
         }).then(function(data)
         {
@@ -42,7 +42,7 @@ function GetMovieData(name)
 
             if (data.imdbID){
             var movieID = data.imdbID;
-            movieObject.posterRef = "http://img.omdbapi.com/?apikey=" + APIkey + "&i=" + movieID;
+            movieObject.posterRef = "https://img.omdbapi.com/?apikey=" + APIkey + "&i=" + movieID;
             }
     
             // var reviewOutput = GetReview(name);

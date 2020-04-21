@@ -242,6 +242,10 @@ function selectMovies() {
         if ((currentMovieAObj.title === currentMovieBObj.title)) {
             selectMovies();
         }
+        else if ((!currentMovieAObj.title) || (!currentMovieBObj.title)) {
+            console.log("select movies returned early")
+            selectMovies();
+        }
         else {
             checkRepeats();
             if (repeatingMovieTF === true) {
@@ -255,12 +259,7 @@ function selectMovies() {
 //This function sets the HTML elements to display summaries and images for the movies
 function displayMovies() {
     console.log("start of display movies function")
-    // console.log(currentMovieAObj)
-    if ((!currentMovieAObj.title) || (!currentMovieBObj.title)) {
-        console.log("display movies returned early")
-        selectMovies();
-        return;
-    }
+    
     $("#button-A").text(currentMovieAObj.title);
     $("#button-B").text(currentMovieBObj.title);
 
