@@ -218,6 +218,7 @@ function selectMovies() {
     // var validPair = false;
     // while (!validPair) {
         //Gets two movie names at random from the currentMovieArray
+        console.log(currentMovieArray)
         var movieAIndex = Math.floor(Math.random() * currentMovieArray.length);
         currentMovieA = currentMovieArray[movieAIndex];
         var movieBIndex = Math.floor(Math.random() * currentMovieArray.length);

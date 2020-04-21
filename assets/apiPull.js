@@ -12,6 +12,8 @@ function GetMovieData(name)
             method: "GET"
         }).then(function(data)
         {
+            console.log("this is the data:");
+            console.log(data);
             var movieObject ={
                 title: data.Title,
                 rating: data.imdbRating,
@@ -40,46 +42,50 @@ function GetMovieData(name)
             //     movieObject.review = reviewOutput;
             // }
     
+            console.log("This is the movieObject");
+            console.log(movieObject);
             resolve(movieObject);
-        });
+        }); 
     })
     
-}
-
-//Takes in a movie name and returns a short summary of the NYT review of it. 
-//If it cannot find it, or NYT doesn't have a review summary, it returns -1
-function GetReview(name)
-{
-    return new Promise(function(resolve, reject) {
-
-    name = name.toLowerCase();
-    name = name.replace("_"," ");
-    name = name.replace(" ","+");
-
-    $.ajax({
-        url: "https://api.nytimes.com/svc/movies/v2/reviews/search.json?query="+ name + "&api-key=" + APInyt,
-        method: "GET"
-    }).then(function (data) {
-       var reviewArray = data.results;
-       var targetMovieReview;
-       for(var i = 0; i < reviewArray.length; i++)
-       {
-           var targetName = reviewArray[i].display_title;
-           targetName = targetName.toLowerCase();
-           targetName = targetName.replace(" ","+");
-           if(name === targetName)
+    }
+    
+    //Takes in a movie name and returns a short summary of the NYT review of it. 
+    //If it cannot find it, or NYT doesn't have a review summary, it returns -1
+    function GetReview(name)
+    {
+        return new Promise(function(resolve, reject) {
+    
+        // name = name.toLowerCase();
+        // name = name.replace("_"," ");
+        // name = name.replace(" ","+");
+    
+        $.ajax({
+            url: "https://api.nytimes.com/svc/movies/v2/reviews/search.json?query="+ name + "&api-key=" + APInyt,
+            method: "GET"
+        }).then(function (data) {
+           var reviewArray = data.results;
+           var targetMovieReview;
+           for(var i = 0; i < reviewArray.length; i++)
            {
-               targetMovieReview = reviewArray[i];
+               var targetName = reviewArray[i].display_title;
+               targetName = targetName.toLowerCase();
+               targetName = targetName.replace(" ","+");
+               if(name === targetName)
+               {
+                   targetMovieReview = reviewArray[i];
+               }
            }
-       }
-       if(targetMovieReview === null || targetMovieReview.summary_short==="")
-       {
-           return -1;
-       }
-       else
-       {
-           resolve (targetMovieReview.summary_short);
-       }
-    });
-    })
-}
+           if(targetMovieReview === null || targetMovieReview.summary_short==="")
+           {
+               return -1;
+           }
+           else
+           {
+               resolve (targetMovieReview.summary_short);
+           }
+        });
+        })
+    }
+
+    
