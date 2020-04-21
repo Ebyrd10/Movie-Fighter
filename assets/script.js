@@ -1,21 +1,5 @@
-// Two variables to hold the movieObject data from the API functions
-//These are dummy variables to help coding things without data
-// var currentMovieA = {
-//     title: "Ethan's Story",
-//     rating: "",
-//     runtime: "",
-//     year: "2011",
-//     boxOffice: "",
-//     posterRef: ""
-// };
-// var currentMovieB = {
-//     title: "Ethan's Story 2: The Retelling",
-//     rating: "",
-//     runtime: "",
-//     year: "2019",
-//     boxOffice: "",
-//     posterRef: ""
-// };
+//This variable handles if the current MovieA and Movie B have been used before
+var repeatingMovieTF = false;
 
 // the winningCreteria must match one of the properites of the currentMovie objects
 var winningCreteria;
@@ -76,18 +60,16 @@ var init = function () {
 //Calls the initializing function
 init();
 
-//This function begins the game when the player pushes the start button TODO: HTML call
+//This function begins the game when the player pushes the start button
 $("#start-button").on("click", startGame);
 function startGame() {
     //This sets the currentMovieArray to the player's choice
     var movieChoice = $("#movieSetMenu option:selected").val();
-    var movieChoiceObject = allMovieSets[movieChoice];
-    currentMovieArray = movieChoiceObject;
+    currentMovieArray = allMovieSets[movieChoice].array;
     if (!currentMovieArray) {
         currentMovieArray = movieNames
         console.log("set movie array to default movieNames array in MovieNames.js")
     };
-    currentMovieArray = movieNames;
     console.log("Current move array is: ")
     console.log(currentMovieArray)
 
@@ -96,25 +78,23 @@ function startGame() {
     console.log("paraChoice: " + paraChoice);
     winningCreteria = allParameters[paraChoice];
     //This promise waits for selectMovies to finish, or maybe it does nothing
-    return new Promise(function(resolve, reject) {
-    selectMovies();
-    //This deletes the start button once it has been pressed
-    $("#start-button").remove();
-
-    $("#startScreenContainer").attr("style", "display: none");
-    $("#game-container").attr("style", "display: inline");
-
-    // selectMovies();
-    // displayMovies();
-    resolve()
+    return new Promise(function (resolve, reject) {
+        selectMovies();
+        //This deletes the start button once it has been pressed
+        $("#start-button").remove();
+        //hides the start screen
+        $("#startScreenContainer").attr("style", "display: none");
+        //displays the game screen
+        $("#game-container").attr("style", "display: inline");
+        resolve()
     })
 }
 
 //This function pushes the current movies as an object into the past movies array
 function storepastMovies() {
     var newEntry = {
-        movieA: currentMovieA.title,
-        movieB: currentMovieB.title
+        movieA: currentMovieAObj.title,
+        movieB: currentMovieBObj.title
     };
     pastMovies.push(newEntry);
 };
@@ -128,27 +108,30 @@ var repeatObjInverse = {
     movieB: ""
 };
 //Returns true for a repeat, false for a new set
-function checkRepeats() {
-    if ((!currentMovieAObj.title) || (!currentMovieBObj.title)){
-    console.log("one or more movies in not defined for check repeats function") 
-    return;
-}
+function checkRepeats() { //check for repeats is breaking the game functionality, it becomes impossible to lose
+    if ((!currentMovieAObj.title) || (!currentMovieBObj.title)) {
+        console.log("one or more movies in not defined for check repeats function")
+        return;
+    }
     else {
-    repeatObj.movieA = currentMovieAObj.title;
-    repeatObj.movieB =  currentMovieBObj.title;
+        repeatObj.movieA = currentMovieAObj.title;
+        repeatObj.movieB = currentMovieBObj.title;
 
     };
+    console.log("this is the repeat obj")
     console.log(repeatObj)
     repeatObjInverse = {
         movieA: currentMovieBObj.title,
         movieB: currentMovieAObj.title
     };
     //If the current movie, or a variation of the current movies placement is already in the pastMovies array, then checkRepeats is true
-    if ((pastMovies.includes(repeatObj)) || (pastMovies.includes(repeatObjInverse))) {
-        return true;
+    if ((pastMovies.includes(repeatObj)) || (pastMovies.includes(repeatObjInverse))) { //this if statement is broken, use a for loop?
+        console.log("repeat is true")
+        repeatingMovieTF = true;
     }
     else {
-        return false;
+        console.log("repeat is false")
+        repeatingMovieTF = false;
     }
 };
 
@@ -156,7 +139,7 @@ function checkRepeats() {
 var addHighScore = function () {
     currentNameValue = $("#highscore-form input").val();
     var newScore = {
-        name: "",
+        name: currentNameValue,
         playerScore: score
     };
     newScore.name = currentNameValue
@@ -179,6 +162,8 @@ function saveToLocalStorage() {
 //A variable to determine whether or not a special scenerio of ties/draws is encountered
 var isDraw = false;
 
+
+
 //The user makes a choice between movie A and movie B
 var userChoice;
 //The winner between A and B is a result of comparing their winningCreteria
@@ -186,11 +171,11 @@ var winner;
 
 function determineWinner() {
     var winningCreteriaName = winningCreteria.name;
-    console.log(winningCreteria.name)
-    console.log (currentMovieAObj[winningCreteriaName])
-    console.log (currentMovieBObj[winningCreteriaName])
-    console.log (currentMovieAObj[winningCreteriaName])
-    console.log (currentMovieBObj[winningCreteriaName])
+    // console.log(winningCreteria.name)
+    // console.log (currentMovieAObj[winningCreteriaName])
+    // console.log (currentMovieBObj[winningCreteriaName])
+    // console.log (currentMovieAObj[winningCreteriaName])
+    // console.log (currentMovieBObj[winningCreteriaName])
     if (currentMovieAObj[winningCreteriaName] > currentMovieBObj[winningCreteriaName]) {
         console.log("log: movieA wins")
         winner = currentMovieAObj;
@@ -232,68 +217,53 @@ var winOrLose = function () {
 //This function sets currentMovieA and currentMovieB to two new valid choices from the array
 function selectMovies() {
     console.log('select movies')
-    // var validPair = false;
-    // while (!validPair) {
-        //Gets two movie names at random from the currentMovieArray
-        console.log(currentMovieArray)
-        var movieAIndex = Math.floor(Math.random() * currentMovieArray.length);
-        currentMovieA = currentMovieArray[movieAIndex];
-        var movieBIndex = Math.floor(Math.random() * currentMovieArray.length);
-        currentMovieB = currentMovieArray[movieBIndex];
-        
-        // //Populates the current movies with their API data, transforming just a string into an object with different properties
-        var promiseA = GetMovieData(currentMovieA) //a promise {ajax} function that returns a movie object
-        var promiseB = GetMovieData(currentMovieB) //same function as before, but a different name
-        var promiseAr = GetReview(currentMovieA)
-        var promiseBr = GetReview(currentMovieB)
-        Promise.all([promiseA, promiseB, promiseAr, promiseBr]).then(function(PromiseVortexArray) { //Waits for both promises to complete before returning an array of return values
-            console.log(PromiseVortexArray)
-            currentMovieAObj = PromiseVortexArray[0]; //assigns the first return value to an object
-            currentMovieBObj = PromiseVortexArray[1]; //assigns the second return value to a different object
-            currentMovieAObj.review = PromiseVortexArray[2];
-            currentMovieBObj.review = PromiseVortexArray[3];
-            if ((currentMovieAObj === currentMovieBObj)) {
-            //     validPair = false;
-            //     if (checkForEnd()) {
-            //         endGame(true);
-                    selectMovies();
-                    return;
-                }
-            else if (checkRepeats()){
-                console.log("checked")
+
+    //Gets two movie names at random from the currentMovieArray
+    console.log(currentMovieArray)
+    var movieAIndex = Math.floor(Math.random() * currentMovieArray.length);
+    currentMovieA = currentMovieArray[movieAIndex];
+    var movieBIndex = Math.floor(Math.random() * currentMovieArray.length);
+    currentMovieB = currentMovieArray[movieBIndex];
+
+    // //Populates the current movies with their API data, transforming just a string into an object with different properties
+    var promiseA = GetMovieData(currentMovieA) //a promise {ajax} function that returns a movie object
+    var promiseB = GetMovieData(currentMovieB) //same function as before, but a different name
+    var promiseAr = GetReview(currentMovieA)
+    var promiseBr = GetReview(currentMovieB)
+    Promise.all([promiseA, promiseB, promiseAr, promiseBr]).then(function (PromiseVortexArray) { //Waits for both promises to complete before returning an array of return values
+        console.log(PromiseVortexArray)
+        currentMovieAObj = PromiseVortexArray[0]; //assigns the first return value to an object
+        currentMovieBObj = PromiseVortexArray[1]; //assigns the second return value to a different object
+        currentMovieAObj.review = PromiseVortexArray[2];
+        currentMovieBObj.review = PromiseVortexArray[3];
+        //This if statement handle the possibilty that Movie A and Movie B are the same
+        if ((currentMovieAObj.title === currentMovieBObj.title)) {
+            selectMovies();
+        }
+        else {
+            checkRepeats();
+            if (repeatingMovieTF === true) {
+                console.log("repeat found")
             }
-            // }
-            // else {
-            //     validPair = true;
-            // }
-            console.log("Movie A: ")
-            console.log(currentMovieAObj)
-            console.log("Movie B: ")
-            console.log(currentMovieBObj)
-            displayMovies();
-        })
-
-
-    // }  
-
-    
+        }
+        displayMovies();
+    })
 }
 
 //This function sets the HTML elements to display summaries and images for the movies
-//TODO: HTML call
 function displayMovies() {
     console.log("start of display movies function")
-    console.log(currentMovieAObj)
-    if ((!currentMovieAObj.title) || (!currentMovieBObj.title)){
+    // console.log(currentMovieAObj)
+    if ((!currentMovieAObj.title) || (!currentMovieBObj.title)) {
         console.log("display movies returned early")
         selectMovies();
-        return;}
+        return;
+    }
     $("#button-A").text(currentMovieAObj.title);
     $("#button-B").text(currentMovieBObj.title);
 
     $(".movieAReview").text(currentMovieAObj.review);
     $(".movieBReview").text(currentMovieBObj.review);
-    //TODO: Code for pop up - if needed
 
     var movieAImage = $("#movAImg");
     var movieBImage = $("#movBImg");
@@ -308,13 +278,12 @@ function displayMovies() {
 
 //This function will return true if there are no remaining combinations
 function checkForEnd() {
-    //This if statement may casue infinite loading screen hang
     if (pastMovies.length >= (currentMovieArray.length * currentMovieArray.length - 1)) {
         return true;
     }
     else {
         return false;
-     }
+    }
 }
 
 //This function ends the game: The parameter determines if they got a wrong answer (false), or completed all pairs (true)
@@ -327,8 +296,8 @@ function endGame(victory) {
     //Save the highscore list to local storage
     saveToLocalStorage();
     //Display the Highscores onto the page
-    $("#game-container").attr("style","display: none");
-    $("#end-container").attr("style","display: in-line");
+    $("#game-container").attr("style", "display: none");
+    $("#end-container").attr("style", "display: in-line");
 
 }
 
@@ -371,34 +340,28 @@ displayHighScores = function () {
 $("#highscore-button").on("click", displayHighScores());
 
 //On clicking an image, that image becomes  userChoice and it calls the winOrlose function to see if the userChoice was correct
-//TODO: HTML call to a tag on both the images
+//user choice can also be set by clicking on the image itself
 $("#button-A").on("click", function () {
     determinePlayerChoice(true);
 });
 
-$("#button-B").on("click", function ()
-{
+$("#button-B").on("click", function () {
     determinePlayerChoice(false);
 });
 
-$("#movAImg").on("click",function()
-{
+$("#movAImg").on("click", function () {
     determinePlayerChoice(true);
 });
 
-$("#movBImg").on("click",function()
-{
+$("#movBImg").on("click", function () {
     determinePlayerChoice(true);
 });
 
-function determinePlayerChoice(choiceA)
-{
-    if(choiceA)
-    {
+function determinePlayerChoice(choiceA) {
+    if (choiceA) {
         userChoice = currentMovieAObj;
     }
-    else
-    {
+    else {
         userChoice = currentMovieBObj;
     }
     winOrLose();
@@ -448,22 +411,6 @@ var movingStartMenu = function () {
 };//end of movingStartMenu
 movingStartMenu();
 
-$("#go-home").on("click", function refreshPage(){
+$("#go-home").on("click", function refreshPage() {
     window.location.reload();
-} ); 
-
-//Below is for testing
-// highScoreList = [
-//     {
-//         name: "Ethan",
-//         playerScore: 91
-//     },
-//     {
-//         name: "Jane",
-//         playerScore: 3
-//     },
-//     {
-//         name: "Mozambique",
-//         playerScore: 15
-//     }
-// ];
+});
