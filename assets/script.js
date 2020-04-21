@@ -281,6 +281,8 @@ function displayMovies() {
     movieAImage.attr("alt", currentMovieAObj.title);
     movieBImage.attr("alt", currentMovieBObj.title);
     console.log("end of display movies function")
+    $("#movASnip").text(currentMovieAObj.review)
+    $("#movBSnip").text(currentMovieBObj.review)
 }
 
 //This function will return true if there are no remaining combinations
