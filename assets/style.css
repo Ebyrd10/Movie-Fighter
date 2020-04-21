@@ -23,7 +23,6 @@ body {
 }
 
 #movie-A {
-  display: inline-block; 
   outline: 1px solid #ff4633;
   height: 425px;
   width: 300px;
@@ -37,12 +36,12 @@ body {
   color: #FFD133;
   background-color: #339CFF;
   width: 300px;
+  height: 100px;
   margin: 1em;
   
 }
 
 #movie-B {
-  display: inline-block; 
   outline: 1px solid #FF4633;
   height: 425px;
   width: 300px;
@@ -170,24 +169,17 @@ h3 {
   margin-top: -40px;
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> ec039e30192138da76b581c970ac8311cf71d9b7
 #start-container {
   margin: 0 auto;
   padding: 10px;
 }
-
+/*
 #game-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 10px;
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> ec039e30192138da76b581c970ac8311cf71d9b7
+*/
 #DisplayHighScores li {
   margin-top:20px;
   list-style: none;
