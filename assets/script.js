@@ -80,7 +80,7 @@ init();
 $("#start-button").on("click", startGame);
 function startGame() {
     //This sets the currentMovieArray to the player's choice
-    var movieChoice = $(".movieSetMenu").val();
+    var movieChoice = $("#movieSetMenu option:selected").val();
     var movieChoiceObject = allMovieSets[movieChoice];
     currentMovieArray = movieChoiceObject;
     if (!currentMovieArray) {
@@ -91,7 +91,8 @@ function startGame() {
     console.log(currentMovieArray)
 
     //This sets the parameter to the player's choice
-    var paraChoice = $(".parameterMenu").val();
+    var paraChoice = $("#parameterMenu option:selected").val();
+    console.log("paraChoice: "+paraChoice);
     winningCreteria = allParameters[paraChoice];
 
     //This deletes the start button once it has been pressed
@@ -343,16 +344,37 @@ $("#highscore-button").on("click", displayHighScores());
 
 //On clicking an image, that image becomes  userChoice and it calls the winOrlose function to see if the userChoice was correct
 //TODO: HTML call to a tag on both the images
-$(".movieImage").on("click", function () {
-    var userChoiceLetter = $(this).val(); //pseudocode, not real code TODO: Get a reference to the object's value: A or B
-    if (userChoiceLetter === "A") {
-        userChoice = currentMovieA;
+$("#button-A").on("click", function () {
+    determinePlayerChoice(true);
+});
+
+$("#button-B").on("click", function ()
+{
+    determinePlayerChoice(false);
+});
+
+$("#movAImg").on("click",function()
+{
+    determinePlayerChoice(true);
+});
+
+$("#movBImg").on("click",function()
+{
+    determinePlayerChoice(true);
+});
+
+function determinePlayerChoice(choiceA)
+{
+    if(choiceA)
+    {
+        userChoice = currentMovieAObj;
     }
-    else {
-        userChoice = currentMovieB;
+    else
+    {
+        userChoice = currentMovieBObj;
     }
     winOrLose();
-});
+}
 
 
 // //Animates the start button to move every half second in a random direction

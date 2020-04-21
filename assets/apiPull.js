@@ -12,8 +12,6 @@ function GetMovieData(name)
             method: "GET"
         }).then(function(data)
         {
-            console.log("this is the data:");
-            console.log(data);
             var movieObject ={
                 title: data.Title,
                 rating: data.imdbRating,
@@ -42,8 +40,6 @@ function GetMovieData(name)
             //     movieObject.review = reviewOutput;
             // }
     
-            console.log("This is the movieObject");
-            console.log(movieObject);
             resolve(movieObject);
         });
     })
@@ -64,7 +60,6 @@ function GetReview(name)
         url: "https://api.nytimes.com/svc/movies/v2/reviews/search.json?query="+ name + "&api-key=" + APInyt,
         method: "GET"
     }).then(function (data) {
-       console.log(data);
        var reviewArray = data.results;
        var targetMovieReview;
        for(var i = 0; i < reviewArray.length; i++)
@@ -79,13 +74,10 @@ function GetReview(name)
        }
        if(targetMovieReview === null || targetMovieReview.summary_short==="")
        {
-           console.log(-1);
            return -1;
        }
        else
        {
-           console.log("This is the review")
-           console.log(targetMovieReview.summary_short);
            resolve (targetMovieReview.summary_short);
        }
     });
