@@ -3,7 +3,7 @@ h1 {
   font-size: 40px;
   font-family: 'Press Start 2P';
   color: #FFD133;
-  background-color: #339CFF;
+  /* background-color: #339CFF; */
 }
 
 body {
@@ -22,63 +22,66 @@ body {
   margin-top: 20px;
 }
 
-#movie-A {
-  outline: 1px solid #ff4633;
+#movie-A img, #movie-B img{
+  padding:5px;
+  border: 10px solid #FFD133;
+  border-radius: 5px 10px;
   height: 425px;
   width: 300px;
+  box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2)
+}
+#movie-A img:hover, #movie-B img:hover{
+  box-shadow: 6px 8px 16px 6px rgba(0,0,0,0.2)
 }
 
 #vs {
-  display: inline-block;
   text-align: center;
   font-size: 20px;
   font-family: 'Press Start 2P';
   color: #FFD133;
   background-color: #339CFF;
-  width: 300px;
-  height: 100px;
-  margin: 1em;
-  
+  padding: 10px 5px;
+  border-radius: 2px;
 }
 
-#movie-B {
-  outline: 1px solid #FF4633;
-  height: 425px;
-  width: 300px;
+#vsParameter {
+  position: relative;
+  text-align: center;
+  font-size: 12px;
+  font-family: 'Press Start 2P';
+  color: red;
+  padding: 10px 5px;
+  border-radius: 2px;
+  width: 200px;
+  bottom: -40px;
 }
 
-#movie-summary-A {
+
+
+#movie-summary-A, #movie-summary-B {
   display: inline-block;
   font-family: Georgia, "Times New Roman", Times, serif;
   text-align: center;
 }
 
-#movie-summary-B {
-  display: inline-block;
-  font-family: Georgia, "Times New Roman", Times, serif;
-  text-align: center;
-}
 
 ul {
   list-style: none;
 }
 
-#button-A {
+#button-A, #button-B{
   text-align: center;
   font-family: 'Press Start 2P';
   font-size: 25px;
   color: #339CFF;
   background-color: #FFD133;
+  white-space: normal;
+  max-width: 240px;
+  max-height: 370px;
+  margin-top: 50px;
+  padding: 7px;
 }
 
-#button-B {
-  text-align: center;
-  font-family: 'Press Start 2P';
-  font-size: 25px;
-  color: #339CFF;
-  background-color: #FFD133;
-
-}
 
 .movieSetContainer {
   display: inline-block;
@@ -109,22 +112,13 @@ ul {
   
 }
 
-#movieSetMenu {
+#movieSetMenu, #parameterMenu {
   text-align: center;
   font-family: 'Press Start 2P';
   font-size: 15px;
   color: #FFD133;
   background-color: #339CFF;
 }
-
-#parameterMenu {
-  text-align: center;
-  font-family: 'Press Start 2P';
-  font-size: 15px;
-  color: #FFD133;
-  background-color: #339CFF;
-}
-
 
 h2 {
   text-align: center;
@@ -152,9 +146,11 @@ h3 {
 }
 
 #header {
-  margin-bottom: 50px;
-  height: 40px;
-  padding-bottom: 20px;
+  margin-bottom: 30px;
+  height: 90px;
+  padding-top: 15px;
+  width: 100%;
+  background-color: #339CFF;
 }
 
 #game-container{
@@ -166,7 +162,7 @@ h3 {
 }
 
 #movie-buttons{
-  margin-top: -40px;
+  margin-top: 20px;
 }
 
 #start-container {
@@ -174,13 +170,13 @@ h3 {
   padding: 10px;
 }
 
-/*
-#game-container {
+
+/* #game-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 10px;
-  }
-*/
+  } */
+
 
 #DisplayHighScores li {
   margin-top:20px;
@@ -204,4 +200,17 @@ h3 {
   font-family: 'Press Start 2P';
   font-size: 10px;
   margin-bottom: 10px;;
+}
+
+#movie-images{
+  margin: auto 50px auto 50px;
+}
+
+.trueCenter {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }

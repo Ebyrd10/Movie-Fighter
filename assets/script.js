@@ -22,10 +22,10 @@ var pastMovies = [];
 
 //This array stores the avilable parameters
 var allParameters = [
-    rating = { name: "rating", menuDesc: "Higher Rating", description: "Choose the higher rated movie." },
-    runtime = { name: "runtime", menuDesc: "Longer Runtime", description: "Choose the longer movie." },
-    year = { name: "year", menuDesc: "Newer Movie", description: "Choose the newer movie." },
-    boxOffice = { name: "boxOffice", menuDesc: "Highest Box Office", description: "Choose the movie with the higher box office." }
+    rating = { name: "rating", menuDesc: "Higher Rating", description: "Choose the higher rated movie" },
+    runtime = { name: "runtime", menuDesc: "Longer Runtime", description: "Choose the longer movie" },
+    year = { name: "year", menuDesc: "Newer Movie", description: "Choose the newer movie" },
+    boxOffice = { name: "boxOffice", menuDesc: "Highest Box Office", description: "Choose the movie with the higher box office" }
 ];
 
 //A score keeping variable
@@ -88,6 +88,9 @@ function startGame() {
         $("#startScreenContainer").attr("style", "display: none");
         //displays the game screen
         $("#game-container").attr("style", "display: inline");
+        //displays the currently selected parameter/winning creteria
+        console.log(winningCreteria)
+        $("#vsParameter").text(winningCreteria.description)
         resolve()
     })
 }
@@ -230,14 +233,10 @@ function selectMovies() {
     // //Populates the current movies with their API data, transforming just a string into an object with different properties
     var promiseA = GetMovieData(currentMovieA) //a promise {ajax} function that returns a movie object
     var promiseB = GetMovieData(currentMovieB) //same function as before, but a different name
-    var promiseAr = GetReview(currentMovieA)
-    var promiseBr = GetReview(currentMovieB)
-    Promise.all([promiseA, promiseB, promiseAr, promiseBr]).then(function (PromiseVortexArray) { //Waits for both promises to complete before returning an array of return values
+    Promise.all([promiseA, promiseB]).then(function (PromiseVortexArray) { //Waits for both promises to complete before returning an array of return values
         console.log(PromiseVortexArray)
         currentMovieAObj = PromiseVortexArray[0]; //assigns the first return value to an object
         currentMovieBObj = PromiseVortexArray[1]; //assigns the second return value to a different object
-        currentMovieAObj.review = PromiseVortexArray[2];
-        currentMovieBObj.review = PromiseVortexArray[3];
         //This if statement handle the possibilty that Movie A and Movie B are the same
         if ((currentMovieAObj.title === currentMovieBObj.title)) {
             selectMovies();
@@ -263,9 +262,6 @@ function displayMovies() {
     $("#button-A").text(currentMovieAObj.title);
     $("#button-B").text(currentMovieBObj.title);
 
-    $(".movieAReview").text(currentMovieAObj.review);
-    $(".movieBReview").text(currentMovieBObj.review);
-
     var movieAImage = $("#movAImg");
     var movieBImage = $("#movBImg");
     movieAImage.attr("src", currentMovieAObj.posterRef);
@@ -273,8 +269,6 @@ function displayMovies() {
     movieAImage.attr("alt", currentMovieAObj.title);
     movieBImage.attr("alt", currentMovieBObj.title);
     console.log("end of display movies function")
-    $("#movASnip").text(currentMovieAObj.review)
-    $("#movBSnip").text(currentMovieBObj.review)
 }
 
 //This function will return true if there are no remaining combinations
