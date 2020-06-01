@@ -147,10 +147,10 @@ var addHighScore = function () {
         name: currentNameValue,
         playerScore: score
     };
-    newScore.name = currentNameValue
+
     //do not allow scores of 0 to be entered into the highscore list, instead alert out that they lost
     if (newScore.playerScore > 0) {
-        newScore.name = currentNameValue;
+
         //if there is no name, set the name to anonymous
         if ((newScore.name = "") || !newScore.name) {
             newScore.name = "Anonymous"
@@ -162,6 +162,13 @@ var addHighScore = function () {
 function saveToLocalStorage() {
     var highScoreListStr = JSON.stringify(highScoreList);
     localStorage.setItem("movieFighterHighScoreList", highScoreListStr);
+};
+
+//A function to clear the highscore list
+function clearLocalStorage() {
+    highScoreList = [];
+    var highScoreListStr = JSON.stringify(highScoreList);
+    localStorage.removeItem("movieFighterHighScoreList");
 };
 
 //A variable to determine whether or not a special scenerio of ties/draws is encountered
@@ -214,7 +221,7 @@ var winOrLose = function () {
         // setTimeout(displayMovies(), 250)
     }
     else {
-        endGame(false); //Player loses the game for an incorrect answer
+        endGameScreen(); //Player loses the game for an incorrect answer
     }
 
 };
@@ -258,7 +265,7 @@ function selectMovies() {
 //This function sets the HTML elements to display summaries and images for the movies
 function displayMovies() {
     console.log("start of display movies function")
-    
+
     $("#button-A").text(currentMovieAObj.title);
     $("#button-B").text(currentMovieBObj.title);
 
@@ -271,28 +278,18 @@ function displayMovies() {
     console.log("end of display movies function")
 }
 
-//This function will return true if there are no remaining combinations
-function checkForEnd() {
-    if (pastMovies.length >= (currentMovieArray.length * currentMovieArray.length - 1)) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
 
 //This function ends the game: The parameter determines if they got a wrong answer (false), or completed all pairs (true)
-function endGame(victory) {
+function endGameScreen() {
     $("#game-container").attr("style", "display: hidden")
     $("#endPage").attr("style", "display: inline")
-    "give feedback that yells GAME OVER"
-    //Add the final score to the highscore list
-    addHighScore();
-    //Save the highscore list to local storage
-    saveToLocalStorage();
+
     //Display the Highscores onto the page
     $("#game-container").attr("style", "display: none");
     $("#end-container").attr("style", "display: in-line");
+
+    //Displays the user's final score
+    $("#finalScore").text(`Your Score: ${score}`)
 
 }
 
@@ -362,6 +359,18 @@ function determinePlayerChoice(choiceA) {
     winOrLose();
 }
 
+$("#addHighScoreBtn").on("click", function () {
+    //Add the final score to the highscore list
+    addHighScore();
+    //Save the highscore list to local storage
+    saveToLocalStorage();
+    $("#addHighScoreBtn").hide();
+});
+
+$("#clearLocalStorageBtn").on("click", function () {
+    console.log("hi there u two omg me")
+    clearLocalStorage()
+})
 
 // //Animates the start button to move every half second in a random direction
 var movingStartMenu = function () {
