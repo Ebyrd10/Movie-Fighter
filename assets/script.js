@@ -62,9 +62,21 @@ var init = function () {
 //Calls the initializing function
 init();
 
+var gameStarted = false;
+
 //This function begins the game when the player pushes the start button
 $("#start-button").on("click", startGame);
+document.body.onkeyup = function (e) {
+    if (!gameStarted)
+    {
+    console.log(e.keyCode)
+    if (e.keyCode === 32){
+    startGame();
+    }
+}
+}
 function startGame() {
+    gameStarted = true;
     //This sets the currentMovieArray to the player's choice
     var movieChoice = $("#movieSetMenu option:selected").val();
     currentMovieArray = allMovieSets[movieChoice].array;
