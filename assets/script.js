@@ -210,6 +210,9 @@ var winOrLose = function () {
     //If the user correctly choses the winner, OR a draw is encountered, the game goes on
 
     if ((userChoice === winner) || (isDraw)) {
+        //Reset isDraw to false
+        isDraw = false;
+        //increment the current score
         score++;
         //Stores the past movies to avoid repeats
         storepastMovies();
