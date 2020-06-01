@@ -20,6 +20,8 @@ body {
   color: #339CFF;
   background-color: #FFD133;
   margin-top: 20px;
+  border-radius: 16px;
+  padding: 12px;
 }
 
 #movie-A img, #movie-B img{
@@ -152,6 +154,9 @@ h3 {
   width: 100%;
   background-color: #339CFF;
 }
+#header:hover {
+  cursor: pointer;
+}
 
 #game-container{
   display: none;
@@ -169,14 +174,6 @@ h3 {
   margin: 0 auto;
   padding: 10px;
 }
-
-
-/* #game-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 10px;
-  } */
-
 
 #DisplayHighScores li {
   margin-top:20px;
@@ -213,4 +210,15 @@ h3 {
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+
+
+#highScoresBanner, #finalScore {
+  margin: 15px;
+}
+
+
+#DisplayHighScores {
+  margin-top: 60px;
+  margin-bottom: 20px;
 }

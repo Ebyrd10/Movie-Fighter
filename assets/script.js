@@ -72,12 +72,9 @@ function startGame() {
         currentMovieArray = movieNames
         console.log("set movie array to default movieNames array in MovieNames.js")
     };
-    console.log("Current move array is: ")
-    console.log(currentMovieArray)
 
     //This sets the parameter to the player's choice
     var paraChoice = $("#parameterMenu option:selected").val();
-    console.log("paraChoice: " + paraChoice);
     winningCreteria = allParameters[paraChoice];
     //This promise waits for selectMovies to finish, or maybe it does nothing
     return new Promise(function (resolve, reject) {
@@ -89,7 +86,6 @@ function startGame() {
         //displays the game screen
         $("#game-container").attr("style", "display: inline");
         //displays the currently selected parameter/winning creteria
-        console.log(winningCreteria)
         $("#vsParameter").text(winningCreteria.description)
         resolve()
     })
@@ -123,8 +119,6 @@ function checkRepeats() { //check for repeats is breaking the game functionality
         repeatObj.movieB = currentMovieBObj.title;
 
     };
-    console.log("this is the repeat obj")
-    console.log(repeatObj)
     repeatObjInverse = {
         movieA: currentMovieBObj.title,
         movieB: currentMovieAObj.title
@@ -135,27 +129,25 @@ function checkRepeats() { //check for repeats is breaking the game functionality
         repeatingMovieTF = true;
     }
     else {
-        console.log("repeat is false")
         repeatingMovieTF = false;
     }
 };
 
 // A function that adds the current score as a high score
 var addHighScore = function () {
-    currentNameValue = $("#highscore-form input").val();
     var newScore = {
-        name: currentNameValue,
+        name: $("#highscore-form input").val(),
         playerScore: score
     };
 
-    //do not allow scores of 0 to be entered into the highscore list, instead alert out that they lost
+    //do not allow scores of 0 to be entered into the highscore list
     if (newScore.playerScore > 0) {
-
         //if there is no name, set the name to anonymous
-        if ((newScore.name = "") || !newScore.name) {
+        if (!newScore.name) {
             newScore.name = "Anonymous"
-            highScoreList.push(newScore)
         };
+        
+        highScoreList.push(newScore)
     }
 }
 //A function to save our highscore list to local storage
@@ -178,27 +170,21 @@ var isDraw = false;
 
 //The user makes a choice between movie A and movie B
 var userChoice;
-//The winner between A and B is a result of comparing their winningCreteria
-var winner;
 
 function determineWinner() {
     var winningCreteriaName = winningCreteria.name;
-    // console.log(winningCreteria.name)
-    // console.log (currentMovieAObj[winningCreteriaName])
-    // console.log (currentMovieBObj[winningCreteriaName])
-    // console.log (currentMovieAObj[winningCreteriaName])
-    // console.log (currentMovieBObj[winningCreteriaName])
+
     if (currentMovieAObj[winningCreteriaName] > currentMovieBObj[winningCreteriaName]) {
         console.log("log: movieA wins")
-        winner = currentMovieAObj;
+        return currentMovieAObj;
     }
     else if (currentMovieAObj[winningCreteriaName] < currentMovieBObj[winningCreteriaName]) {
         console.log("log: movieA losses")
-        winner = currentMovieBObj;
+        return currentMovieBObj;
     }
     else if (currentMovieAObj[winningCreteriaName] === currentMovieBObj[winningCreteriaName]) {
         console.log("log: movies are tied")
-        isDraw = true;
+        return isDraw = true;
     }
     else {
         console.log("log: no winner was successfully declared")
@@ -207,8 +193,8 @@ function determineWinner() {
 
 //Comparing userChoice to the actual winner
 var winOrLose = function () {
-    //Calling the determineWinner function since it should always be called before the winOrLose function anyway
-    determineWinner();
+    //Calling the result of the determineWinner function as a winner variable
+    var winner = determineWinner();
     //If the user correctly choses the winner, OR a draw is encountered, the game goes on
 
     if ((userChoice === winner) || (isDraw)) {
@@ -221,17 +207,15 @@ var winOrLose = function () {
         // setTimeout(displayMovies(), 250)
     }
     else {
-        endGameScreen(); //Player loses the game for an incorrect answer
+        displayHighScores();
     }
 
 };
 
 //This function sets currentMovieA and currentMovieB to two new valid choices from the array
 function selectMovies() {
-    console.log('select movies')
 
     //Gets two movie names at random from the currentMovieArray
-    console.log(currentMovieArray)
     var movieAIndex = Math.floor(Math.random() * currentMovieArray.length);
     currentMovieA = currentMovieArray[movieAIndex];
     var movieBIndex = Math.floor(Math.random() * currentMovieArray.length);
@@ -241,7 +225,6 @@ function selectMovies() {
     var promiseA = GetMovieData(currentMovieA) //a promise {ajax} function that returns a movie object
     var promiseB = GetMovieData(currentMovieB) //same function as before, but a different name
     Promise.all([promiseA, promiseB]).then(function (PromiseVortexArray) { //Waits for both promises to complete before returning an array of return values
-        console.log(PromiseVortexArray)
         currentMovieAObj = PromiseVortexArray[0]; //assigns the first return value to an object
         currentMovieBObj = PromiseVortexArray[1]; //assigns the second return value to a different object
         //This if statement handle the possibilty that Movie A and Movie B are the same
@@ -264,7 +247,6 @@ function selectMovies() {
 
 //This function sets the HTML elements to display summaries and images for the movies
 function displayMovies() {
-    console.log("start of display movies function")
 
     $("#button-A").text(currentMovieAObj.title);
     $("#button-B").text(currentMovieBObj.title);
@@ -275,12 +257,29 @@ function displayMovies() {
     movieBImage.attr("src", currentMovieBObj.posterRef);
     movieAImage.attr("alt", currentMovieAObj.title);
     movieBImage.attr("alt", currentMovieBObj.title);
-    console.log("end of display movies function")
 }
 
 
-//This function ends the game: The parameter determines if they got a wrong answer (false), or completed all pairs (true)
-function endGameScreen() {
+//A function that clear the main image/moive section if ever needed
+var clearInfo = function () {
+    $("#movie-images").html = "";
+    $("#movie-info").html = "";
+};
+
+//A function that clears the highscores display div
+var clearHighScoresDisplay = function () {
+        $("#DisplayHighScores").empty();
+};
+
+
+//This function displays the current high scores list
+displayHighScores = function () {
+    //This deals with the positioning of the list
+    //Clears the movie cards to make way for a highscore list
+    clearInfo();
+    //Clears the highscore list if it exists to make way for new highscores
+    clearHighScoresDisplay();
+
     $("#game-container").attr("style", "display: hidden")
     $("#endPage").attr("style", "display: inline")
 
@@ -291,33 +290,9 @@ function endGameScreen() {
     //Displays the user's final score
     $("#finalScore").text(`Your Score: ${score}`)
 
-}
-
-//A function that clear the main image/moive section if ever needed
-var clearInfo = function () {
-    $("#movie-images").html = "";
-    $("#movie-info").html = "";
-};
-
-//A function that clears the highscores display div
-var clearHighScoresDisplay = function () {
-    if ($("#DisplayHighScores")) {
-        $("#DisplayHighScores").textContent = "";
-    };
-};
-
-//This function displays the current high scores list
-displayHighScores = function () {
-    //This deals with the positioning of the list
-    //Clears the movie cards to make way for a highscore list
-    clearInfo();
-    //Clears the highscore list if it exists to make way for new highscores
-    clearHighScoresDisplay();
-
     //This deals with the creation of the actual highscore display section
-    displayHighScoresEl = $("<div>");
-    displayHighScoresEl.attr("id", "DisplayHighScores")
-    $("#highscore-form").append(displayHighScoresEl)
+    displayHighScoresList = $("<div>").attr("id", "DisplayHighScores")
+    $("#highscore-form").append(displayHighScoresList)
 
     //This deal with the creation of the list
     //loops through the HighScores array and create a new listitem for every entry
@@ -329,7 +304,7 @@ displayHighScores = function () {
 };
 
 //If the highscores button is clicked then then it triggers the display Highscores function
-$("#highscore-button").on("click", displayHighScores());
+// $("#highscore-button").on("click", displayHighScores());
 
 //On clicking an image, that image becomes  userChoice and it calls the winOrlose function to see if the userChoice was correct
 //user choice can also be set by clicking on the image itself
@@ -364,13 +339,16 @@ $("#addHighScoreBtn").on("click", function () {
     addHighScore();
     //Save the highscore list to local storage
     saveToLocalStorage();
+    //Hides the add button
     $("#addHighScoreBtn").hide();
+    //Hides the name form
+    $("#highscore-form input").hide();
+    clearHighScoresDisplay();
+    displayHighScores();
+
 });
 
-$("#clearLocalStorageBtn").on("click", function () {
-    console.log("hi there u two omg me")
-    clearLocalStorage()
-})
+$("#clearLocalStorageBtn").on("click", clearLocalStorage)
 
 // //Animates the start button to move every half second in a random direction
 var movingStartMenu = function () {
@@ -416,5 +394,9 @@ var movingStartMenu = function () {
 movingStartMenu();
 
 $("#go-home").on("click", function refreshPage() {
+    window.location.reload();
+});
+
+$("#header").on("click", function refreshPage() {
     window.location.reload();
 });
