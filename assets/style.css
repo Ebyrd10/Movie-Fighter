@@ -77,14 +77,12 @@ ul {
   color: #339CFF;
   background-color: #FFD133;
   white-space: normal;
-  max-width: 240px;
-  max-height: 370px;
   margin-top: 50px;
-  padding: 7px;
+  padding: 14px;
 }
 
 
-.movieSetContainer {
+.movieSetContainer, .parameterMenuContainer  {
   display: inline-block;
   text-align: center;
   font-family: 'Press Start 2P';
@@ -92,17 +90,10 @@ ul {
   color: white;
   background-color: #339CFF;
   width:400px;
+  padding: 5px;
+  margin-top:35px;
 }
 
-.parameterMenuContainer {
-  display: inline-block;
-  text-align: center;
-  font-family: 'Press Start 2P';
-  font-size: 25px;
-  color: white;
-  background-color: #339CFF;
-  width: 400px;
-}
 
 #highscore-form {
   margin-bottom: 1em;
@@ -119,6 +110,8 @@ ul {
   font-size: 15px;
   color: #FFD133;
   background-color: #339CFF;
+  border: 2px solid #FFD133;
+  padding: 1px;
 }
 
 h2 {

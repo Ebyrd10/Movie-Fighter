@@ -419,3 +419,8 @@ $("#go-home").on("click", function refreshPage() {
 $("#header").on("click", function refreshPage() {
     window.location.reload();
 });
+
+//Prevents default page refresh on the highscore name form
+$("#highscore-form").submit(function(e){
+    e.preventDefault();
+})

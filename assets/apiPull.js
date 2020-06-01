@@ -1,5 +1,4 @@
-var APIkey = "33d9d97b";
-var APInyt = "OnEXdchBuVPylzn2CiDtaSQLK1ih5pMU";
+var APIkey = "afb9f1f5";
 
 //Takes in a movie title and returns an object with various data pertaining to it. All all numbers, except for posterRef, which is an SRC
 //title: Movie's title. rating: IMDB rating (decimal). runtime: runtime in minutes. year: year of release. boxOffice: box office in USD
@@ -42,7 +41,7 @@ function GetMovieData(name)
             var movieID = data.imdbID;
             movieObject.posterRef = "https://img.omdbapi.com/?apikey=" + APIkey + "&i=" + movieID;
             }
-            
+
             resolve(movieObject);
         }); 
     })
