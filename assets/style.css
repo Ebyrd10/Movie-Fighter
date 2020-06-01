@@ -48,7 +48,7 @@ body {
 #vsParameter {
   position: relative;
   text-align: center;
-  font-size: 12px;
+  font-size: 14px;
   font-family: 'Press Start 2P';
   color: red;
   padding: 10px 5px;
@@ -220,4 +220,16 @@ h3 {
 #DisplayHighScores {
   margin-top: 60px;
   margin-bottom: 20px;
+}
+
+#githubDiv {
+  float: left;
+  padding:5px;
+  width: 3em;
+  height: 3em;
+}
+
+html {
+  height: 100%;
+  width: 100%;
 }

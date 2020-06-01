@@ -373,8 +373,7 @@ $("#clearLocalStorageBtn").on("click", clearLocalStorage)
 // //Animates the start button to move every half second in a random direction
 var movingStartMenu = function () {
     var startSection = $("#start-button");
-    startSection.attr("style", "position:absolute")
-    startSection.animate({ left: "-=100px" }, "fast");
+    startSection.attr("style", "position:relative")
     startSection.animate({ top: "-=100px" }, "fast");
     startSection.animate({ top: "+=275px" }, "fast");
     var rando;
