@@ -286,6 +286,11 @@ var clearHighScoresDisplay = function () {
 
 //This function displays the current high scores list
 displayHighScores = function () {
+    //Sorts the highscore array before displays the data
+    var sortedList = highScoreList;
+    sortedList.sort(function (a,b){
+        return b.playerScore - a.playerScore
+    })
     //This deals with the positioning of the list
     //Clears the movie cards to make way for a highscore list
     clearInfo();
@@ -308,9 +313,9 @@ displayHighScores = function () {
 
     //This deal with the creation of the list
     //loops through the HighScores array and create a new listitem for every entry
-    for (i = 0; i < highScoreList.length; i++) {
+    for (i = 0; i < sortedList.length; i++) {
         var listitem = $("<li>");
-        listitem.text(highScoreList[i].name + " : " + highScoreList[i].playerScore + " points");
+        listitem.text(sortedList[i].name + " : " + sortedList[i].playerScore + " points");
         $("#DisplayHighScores").append(listitem);
     }
 };
