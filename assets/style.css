@@ -1,8 +1,8 @@
 h1 {
   text-align: center;
   font-size: 40px;
-  font-family: 'Press Start 2P';
-  color: #FFD133;
+  font-family: "Press Start 2P";
+  color: #ffd133;
 }
 
 body {
@@ -14,33 +14,35 @@ body {
 
 #start-button {
   text-align: center;
-  font-family: 'Press Start 2P';
+  font-family: "Press Start 2P";
   font-size: 25px;
-  color: #339CFF;
-  background-color: #FFD133;
+  color: #339cff;
+  background-color: #ffd133;
   margin-top: 20px;
   border-radius: 16px;
   padding: 12px;
 }
 
-#movie-A img, #movie-B img{
-  padding:5px;
-  border: 10px solid #FFD133;
+#movie-A img,
+#movie-B img {
+  padding: 5px;
+  border: 10px solid #ffd133;
   border-radius: 5px 10px;
   height: 425px;
   width: 300px;
-  box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2)
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
 }
-#movie-A img:hover, #movie-B img:hover{
-  box-shadow: 6px 8px 16px 6px rgba(0,0,0,0.2)
+#movie-A img:hover,
+#movie-B img:hover {
+  box-shadow: 6px 8px 16px 6px rgba(0, 0, 0, 0.2);
 }
 
 #vs {
   text-align: center;
   font-size: 20px;
-  font-family: 'Press Start 2P';
-  color: #FFD133;
-  background-color: #339CFF;
+  font-family: "Press Start 2P";
+  color: #ffd133;
+  background-color: #339cff;
   padding: 10px 5px;
   border-radius: 2px;
 }
@@ -49,7 +51,7 @@ body {
   position: relative;
   text-align: center;
   font-size: 14px;
-  font-family: 'Press Start 2P';
+  font-family: "Press Start 2P";
   color: red;
   padding: 10px 5px;
   border-radius: 2px;
@@ -57,75 +59,73 @@ body {
   bottom: -40px;
 }
 
-
-
-#movie-summary-A, #movie-summary-B {
+#movie-summary-A,
+#movie-summary-B {
   display: inline-block;
   font-family: Georgia, "Times New Roman", Times, serif;
   text-align: center;
 }
 
-
 ul {
   list-style: none;
 }
 
-#button-A, #button-B{
+#button-A,
+#button-B {
   text-align: center;
-  font-family: 'Press Start 2P';
+  font-family: "Press Start 2P";
   font-size: 25px;
-  color: #339CFF;
-  background-color: #FFD133;
+  color: #339cff;
+  background-color: #ffd133;
   white-space: normal;
   margin-top: 50px;
   padding: 14px;
 }
 
-
-.movieSetContainer, .parameterMenuContainer  {
+.movieSetContainer,
+.parameterMenuContainer {
   display: inline-block;
   text-align: center;
-  font-family: 'Press Start 2P';
+  font-family: "Press Start 2P";
   font-size: 25px;
   color: white;
-  background-color: #339CFF;
-  width:400px;
+  background-color: #339cff;
+  width: 400px;
   padding: 5px;
-  margin-top:35px;
+  margin-top: 35px;
 }
-
 
 #highscore-form {
   margin-bottom: 1em;
   display: inline-block;
   text-align: center;
-  font-family: 'Press Start 2P';
+  font-family: "Press Start 2P";
   font-size: 10px;
-  
 }
 
-#movieSetMenu, #parameterMenu {
+#movieSetMenu,
+#parameterMenu {
   text-align: center;
-  font-family: 'Press Start 2P';
+  font-family: "Press Start 2P";
   font-size: 15px;
-  color: #FFD133;
-  background-color: #339CFF;
-  border: 2px solid #FFD133;
+  color: #ffd133;
+  background-color: #339cff;
+  border: 2px solid #ffd133;
   padding: 1px;
 }
 
 h2 {
   text-align: center;
   font-size: 60px;
-  font-family: 'Press Start 2P';
+  font-family: "Press Start 2P";
   color: red;
 }
 
 h3 {
   text-align: center;
-  background-color: #339CFF;
+  background-color: #339cff;
   color: white;
-  font-family: 'Press Start 2P';
+  font-family: "Press Start 2P";
   width: 300px;
   display: inline-block;
 }
@@ -133,10 +133,10 @@ h3 {
 #go-home {
   display: inline-block;
   text-align: center;
-  font-family: 'Press Start 2P';
+  font-family: "Press Start 2P";
   font-size: 25px;
-  color: #339CFF;
-  background-color: #FFD133;
+  color: #339cff;
+  background-color: #ffd133;
 }
 
 #header {
@@ -144,21 +144,21 @@ h3 {
   height: 90px;
   padding-top: 15px;
   width: 100%;
-  background-color: #339CFF;
+  background-color: #339cff;
 }
 #header:hover {
   cursor: pointer;
 }
 
-#game-container{
+#game-container {
   display: none;
 }
 
-#endPage{
+#endPage {
   display: none;
 }
 
-#movie-buttons{
+#movie-buttons {
   margin-top: 20px;
 }
 
@@ -168,9 +168,9 @@ h3 {
 }
 
 #DisplayHighScores li {
-  margin-top:20px;
+  margin-top: 20px;
   list-style: none;
-  font-family: 'Press Start 2P';
+  font-family: "Press Start 2P";
   font-size: 15px;
 }
 
@@ -178,20 +178,19 @@ h3 {
   margin: 60px;
 }
 
-
 #go-home {
-  margin:50px;
+  margin: 50px;
 }
 
 #highscore-over {
   display: inline-block;
   text-align: center;
-  font-family: 'Press Start 2P';
+  font-family: "Press Start 2P";
   font-size: 10px;
-  margin-bottom: 10px;;
+  margin-bottom: 10px;
 }
 
-#movie-images{
+#movie-images {
   margin: auto 50px auto 50px;
 }
 
@@ -204,11 +203,10 @@ h3 {
   transform: translate(-50%, -50%);
 }
 
-
-#highScoresBanner, #finalScore {
+#highScoresBanner,
+#finalScore {
   margin: 15px;
 }
-
 
 #DisplayHighScores {
   margin-top: 60px;
@@ -217,7 +215,7 @@ h3 {
 
 #githubDiv {
   float: left;
-  padding:5px;
+  padding: 5px;
   width: 3em;
   height: 3em;
 }
