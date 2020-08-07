@@ -11,6 +11,8 @@
 
 Movie Fighter is a fun web app where the user selects a parameter and has to guess which of two movies has more. Whether its highest box office, longest run time, or higher critic score, the answer may suprise you!
 
+![movie_fighter_example](movie_fighter.gif)
+
 ![movie_fighter](movie_fighter.PNG)
 
 ## Installation
