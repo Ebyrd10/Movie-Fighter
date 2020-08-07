@@ -1,7 +1,59 @@
-# Movie-Fighter
-Compare movies on this website. GWU bootcamp group project.
+# Movie Fighter
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+  <a href="https://github.com/Ebyrd10/burgers_taskmaster#readme" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+  </a>
+  <a href="https://github.com/Ebyrd10/burgers_taskmaster/graphs/commit-activity" target="_blank">
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
+  </a>
+</p>
 
-## Description
+Movie Fighter is a fun web app where the user selects a parameter and has to guess which of two movies has more. Whether its highest box office, longest run time, or higher critic score, the answer may suprise you!
 
-This short game allows the user to choose between two different movies based on rating, run-time and year the movie was released. The user is presented with a game menu screen that presents button option that navigate to the highscores form, the ability to choose what movie set the user would like to compare or the game parameters of higher rating, runtimes, newer movies or highest box office revenue. Upon clicking the start button, the user is then presented with two different movie posters and a short summary of each movie. After thinking it over the user then chooses between the 'Movie A' button or the 'Movie B' button. If the user chooses the correct movie, the losing movie is then switched out for another and 'fights' against the previous winning film. This cycle will continue until the user has chosen the incorrect movie, or until the user loops through the entire movie array, having chosen the correct movie each time. Once the user has ended the game by either winning or losing, the 'game over' screen will appear and the user is then prompted with the option to fill out the highscores form.
+![movie_fighter](movie_fighter.PNG)
 
+## Installation
+
+```sh
+clone the repo and open it up!
+```
+
+## Technology
+* HTML
+* CSS
+* jQuery
+* Bootstrap
+* Async Await
+* JavaScript ES6+ 
+* Third Party APIs
+* Local Storage
+
+## Meet the Team
+
+| **Ethan Byrd**| **Jenelle Langford**| **William Rave**|
+| :---: |:---:| :---:|
+| [![Ethan Byrd](https://www.github.com/Ebyrd10.png?size=200)](http://github.com/Ebyrd10)    | [![Jenelle Langford](https://github.com/jenellelangford.png?size=200)](http://github.com/jenellelangford)    | [![Mariana Barnett](https://www.github.com/AvianOverlord.png?size=200)](http://github.com/AvianOverlord) |
+| <a href="http://github.com/Ebyrd10" target="_blank">`github.com/Ebyrd10`</a> | <a href="http://github.com/jenellelangford" target="_blank">`github.com/jenellelangford`</a> | <a href="http://github.com/AvianOverlord" target="_blank">`github.com/AvianOverlord`</a> | 
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Ebyrd10/burgers_taskmaster/issues). You can also take a look at the [contributing guide](https://github.com/Ebyrd10/burgers_taskmaster/blob/master/CONTRIBUTING.md).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+## Support
+
+Reach out to me at one of the following places!
+
+- Website at <a href="http://www.Ethanmbyrd.com" target="_blank">`Ethanmbyrd.com`</a>
+- LinkdenIn at <a href="https://www.linkedin.com/in/ethan-byrd/" target="_blank">`https://www.linkedin.com/in/ethan-byrd/`</a>
+
+---
+
+## License
+
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+
+- **[MIT license](http://opensource.org/licenses/mit-license.php)**
